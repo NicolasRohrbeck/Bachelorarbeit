@@ -1,0 +1,201 @@
+\documentclass[a4paper,openright,parskip,listof=totoc]{scrreprt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                                          %
+% Festlegen der Dokumentenklasse und allgemeine Konfiguration                 %
+%                                                                             %
+% ------------------                                                          %
+% mögliche Optionen:                                                          %
+% ------------------                                                          %
+% - twoside: zweiseitiges Layout (linke und rechte Seiten)                    %
+% - openright: Kapitel beginnen auf der rechten Seite                         % 
+%	- 10pt | 11pt | 12pt: Standard-Schriftgröße (11pt ist Voreinstellung)     %
+% - DIV??: Abstand des Textes zum Rand                                        %
+%	- a4paper: Papierformat DIN A4                                            %
+% - landscape: Querformat                                                     %
+%	- parskip: vertikaler Absatzabstand anstatt Einzug wie im amerikanischen  %
+% - leqno: Formelnummerierung links statt rechts                              %
+% - fleqn: Formeln links statt zentriert                                      %
+% - draft, final: Entwurf oder finale Version                                 %
+% - smallheadings | normalheadings | bigheadings: Größe der Überschriften     %
+% - chapterprefix: die sonst ausgeblendeten Prefixe "Kapitel X", "Anhang Y",  %
+%                  etc. werden dargestellt                                    %
+% - liststotoc: Abbildungs- und Tabellenverzeichnis erscheinen auch im        %
+%               Inhaltsverzeichnis                                            %
+% - bibtotoc: Literaturverzeichnis erscheint im Inhaltsverzeichnis            %
+%                                                                             %
+% ----------------                                                            %
+% mögliche Pakete:                                                            %
+% ----------------                                                            %
+% - scrartcl: kleine Dokumente, keine Kapitel                                 %
+% - scrreprt: große Dokumente, extra Titelseite, Zusammenfassung und          %
+%             Inhaltsverzeichnis, Kapitel                                     %
+% - scrbook: sehr große Dokumente, zweiseitiger Satz                          %
+% - scrlttr2: Briefe                                                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Sonderzeichen wie deutsche Umlaute vom Schriftsatz ansinew % (unter Linux latin1 nehmen) 
+\usepackage[utf8]{inputenc} 
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{pdflscape}
+\usepackage{pdfpages}
+\usepackage[T1]{fontenc} % Sorgt dafür, dass Wörter mit Umlauten getrennt werden.
+\usepackage{ae,aecompl}  % Type 1 Zeichensatz, sieht besser aus als PDF
+\usepackage{fontawesome} %fuer \faLink
+\usepackage[main=english, ngerman]{babel} % neudeutsche Silbentrennung, Übersetzungen 
+\usepackage{eurosym}
+\usepackage[printonlyused]{acronym}  % Liste der Akronyme
+\usepackage{siunitx} % fuer SI-Einheiten
+
+% Mathepakete
+\usepackage[intlimits]{amsmath}
+\usepackage{amssymb,amsthm,amstext} 
+\usepackage{amsfonts}
+
+% Tabelle mit Zeilenumbrüchen
+\usepackage{makecell}
+
+% Pakete fr die bessere Nutzung von Tabellen
+\usepackage{
+  array,
+  booktabs,
+  dcolumn, % auf Dezimaltrennzeichen ausgerichtete Spalten in tabular
+  tabularx,
+}
+
+% kann eine Barriere fr Float-Umgebungen erzeugen mit \FloatBarrier
+\usepackage{placeins}
+
+\usepackage[version=4,arrows=pgf]{mhchem}
+% Float-Klasse
+\usepackage{float}
+
+% spezielle Optionen zur Veräderung der itemize- und enumerate-Umgebungen
+\usepackage{paralist}
+
+% Paket zum Einbinden von Grafiken
+%\usepackage[pdflatex]{graphicx}			% bei Ausgabe als PDF
+\usepackage{graphicx}						% bei Ausgabe als DVI
+
+% Einbinden von mehreren Bildern in eine figure-Umgebung
+\usepackage{subfigure}
+
+% einige Sonderzeichen wie Grad Celsius, Copyright, etc.
+\usepackage{textcomp} 
+
+% zur schöneren Darstellung von physikalischen Einheiten
+%\usepackage[thinspace,spaceqspace]{fancyunits} 
+
+% Um Bilder im fließtext zu platzieren (bei word wäre es "passend")
+\usepackage{wrapfig}
+
+% Tabelle mit Seitenumbruch
+\usepackage{longtable}
+
+% für Farben im allgemeinen
+\usepackage{color}
+
+% für die Hintergrundfarbe einzelner Zellen in Tabellen
+\usepackage{colortbl}
+
+% Landscape mode
+\usepackage{lscape}
+
+% Paragraphen kommentieren
+\usepackage{comment}
+
+
+% --- Farbdefinitionen ----------------------------------------
+%\definecolor{wordblue}{rgb}{0.55,0.7,0.89}
+\definecolor{wordblue}{rgb}{0.9,0.9,0.9}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+\definecolor{verylow}{rgb}{0.0,1.0,0.0}
+\definecolor{low}{rgb}{1.0,1.0,0.0}
+\definecolor{medium}{rgb}{1.0,0.6,0.0}
+\definecolor{high}{rgb}{1.0,0.0,0.0}
+\definecolor{Pending}{rgb}{1.0,1.0,1.0}
+\definecolor{Not Verified}{rgb}{1.0,0.0,0.0}
+\definecolor{Verified}{rgb}{0.0,1.0,0.0}
+\definecolor{Done}{rgb}{0.0,1.0,0.0}
+
+%erweiterte Formattierung der Kopf- und Fußzeilen
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0.5pt}
+
+% Fußzeile auf jeder Seite - auch Kapitel und Inhaltsverzeichnis
+\fancypagestyle{plain}{
+        \fancyhead[L]{\leftmark}
+		\fancyhead[R]{\thepage}
+		\renewcommand{\headrulewidth}{0.5pt}
+}
+
+\nonfrenchspacing % etwas mehr platz zwischen Sätzen
+
+
+% Zur Bearbeitung von Tabellen - und Abbildungsüberschriften
+\usepackage[format=plain,							% plain, hang
+						labelsep=endash,					% none, colon, period, space, quad, newline
+						justification=justified, 	% justified, centering, centerlast, 
+																			% centerfirst, raggedright, raggedleft
+						singlelinecheck=true,			% true, false
+						width=0.75\textwidth,
+						font=footnotesize,
+						labelfont=bf,
+						textfont=rm,
+						labelfont=bf]{caption}
+
+
+% Eigene Farben definieren																			
+\usepackage{color}
+\definecolor{darkblue}{rgb}{0,0,0.35}
+\definecolor{webbrown}{rgb}{.6,0,0}
+
+% Querverweise																			
+% Falls die Ausgabe als PDF erfolgen soll, das Paket hyperref folgendermaßen
+% einfügen
+\usepackage[pdftex,
+						plainpages=false,
+						pdfpagelabels=true,
+						hypertexnames=false
+						]{hyperref}   
+
+	\hypersetup{%
+	%--- Farbige Links -----------------------------------------------------------
+		colorlinks				= true,
+		linkcolor					=	webbrown,
+		urlcolor					=	webbrown,
+	%--- Bookmarks ----------------------------------------------%
+		bookmarksopen		= false,						% alle Gliederungsebenen offen?
+		bookmarksnumbered	= true,							% Lesezeichen mit Abschnittsnummern
+		linktocpage			= true,							% nur Seitenzahlen im TOC sind Links
+	%--- Dokument Informationen ----------------------------------
+		pdftitle 				= {Implementation of the Attitude Determination System of the Scintillation Event Triggering Hodoscope (SETH)},
+		pdfsubject				= {Bachelor's Thesis},
+		pdfauthor				=	{Nicolas Rohrbeck},
+		pdfkeywords				=	{},
+		pdfcreator				=	{Ghostscript ps2pdf},
+		pdfproducer				= {LaTeX with hyperref},
+	%--- Dokument Anzeige --------------------------------------------------------
+		pdfpagemode				=	UseOutlines,			% Show Bookmarks in left frame  
+		%pdfpagemode			ü=	None,							% No Bookmarks in left frame 
+		pdfstartview			= Fit,							% fit whole page
+		pdfstartpage			=	1,
+		pdfpagelayout			=	OneColumn
+		%pdfpagelayout	   = TwoColumnRight
+}
+
+% Damit auch subsection im table of content angezeigt werden
+\setcounter{tocdepth}{2}
+
+\newcommand{\un}[2]{#1\,\mathrm{#2}} 
+
+\usepackage[backend=biber, style=phys]{biblatex}
+\addbibresource{bib.bib}
+
+\usepackage{geometry}
+\geometry{
+bottom = 4cm
+}

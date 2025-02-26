@@ -1,0 +1,51 @@
+\input{include/header}   % fügt die benötigten Pakete ein
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                 TITELSEITE               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{include/titlepage}
+\thispagestyle{empty}
+\clearpage
+\input{include/oath}
+\thispagestyle{empty}
+\clearpage
+
+% Römische Seitennummerierung beginnend mit 1 für die ersten Seiten
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                 INHALTSVERZEICHNIS                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+% \addcontentsline{toc}{chapter}{Contents}
+
+\cleardoublepage
+
+% Auf arabische Seitennummerierung umschalten
+  \pagenumbering{arabic}
+  \setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                     MAIN BODY                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{chapters/00_abstract}
+
+\chapter*{ABBREVIATIONS}
+\addcontentsline{toc}{chapter}{ABBREVIATIONS}
+\input{include/acronyms}
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%              BIBLIOGRAPHY + APPENDIX              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography[heading=bibintoc]
+
+\appendix
+\input{chapters/appendix}
+
+\end{document}
