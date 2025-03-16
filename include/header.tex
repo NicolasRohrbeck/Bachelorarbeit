@@ -127,7 +127,7 @@
 
 % Fußzeile auf jeder Seite - auch Kapitel und Inhaltsverzeichnis
 \fancypagestyle{plain}{
-        \fancyhead[L]{\leftmark}
+        \fancyhead[L]{\nouppercase{\leftmark}}
 		\fancyhead[R]{\thepage}
 		\renewcommand{\headrulewidth}{0.5pt}
 }
@@ -192,8 +192,8 @@
 
 \newcommand{\un}[2]{#1\,\mathrm{#2}} 
 
-\usepackage[backend=biber, style=phys]{biblatex}
-\addbibresource{bib.bib}
+\usepackage[backend=biber, style=phys, urldate=comp, dateabbrev=false]{biblatex}
+\addbibresource{bachelor.bib}
 
 \usepackage{geometry}
 \geometry{

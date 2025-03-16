@@ -1,0 +1,12 @@
+\chapter{Methodology \label{ch:methodology}}
+This chapter presents the hard- and software used in the \ac{ADS} as it was prepared for the junior flight of \ac{SETH}. The methodology covers a mixture of work done by senior scientists of the \ac{IEAP} and our own contributions. Most notable eternal contribution comes from Dr. Stephan Böttcher who did the \ac{PCB} design, wrote the \ac{FPGA} code and soldered the example which was used. 
+
+\section{Data Acquisition \label{sec:data_acquisition}}
+During the flight multiple instruments are used to acquire data: an accelerometer and magnetometer for the attitude determination and three 10$\times$20\,mm$^2$ silicon \acfp{SSD}. The \acp{SSD} are used as a scientific payload to determine particle count rates and observe \acp{GCR}.
+
+The program \verb|rpirena.py| is used to stream the data coming from the \ac{FPGA} to the SD\:Card or the \verb|Asterix| server. This program was written by Dr. Stephan Böttcher and is running on a \verb|Raspberry Pi Zero|. As of March 14$^\mathrm{th}$ 2025 the program code can be found under \verb|asterix/home/subversion/stephan/solo/eda/cospi/host|. 
+
+\section{Data Interpretation \label{sec:data_interpretation}}
+To interpret the data, the script \verb|att_eval.py| is used.
+
+\section{Reflection on Methodology \label{sec:reflection_methodology}}

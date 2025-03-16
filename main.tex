@@ -9,13 +9,13 @@
 \input{include/titlepage}
 \thispagestyle{empty}
 \clearpage
-\input{include/oath}
-\thispagestyle{empty}
-\clearpage
+
 
 % Römische Seitennummerierung beginnend mit 1 für die ersten Seiten
 \pagenumbering{roman}
 \setcounter{page}{1}
+
+\input{chapters/00_abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                 INHALTSVERZEICHNIS                %
@@ -33,19 +33,41 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                     MAIN BODY                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{chapters/00_abstract}
 
-\chapter*{ABBREVIATIONS}
-\addcontentsline{toc}{chapter}{ABBREVIATIONS}
-\input{include/acronyms}
+\input{chapters/00_introduction}
 \cleardoublepage
+
+\input{chapters/01_background}
+\cleardoublepage
+
+\input{chapters/02_methodology}
+\cleardoublepage
+
+\input{chapters/03_data}
+\cleardoublepage
+
+\input{chapters/04_results}
+\cleardoublepage
+
+\input{chapters/05_conclusion}
+\cleardoublepage
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %              BIBLIOGRAPHY + APPENDIX              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography[heading=bibintoc]
 
-\appendix
-\input{chapters/appendix}
+
+\input{include/acronyms}
+\cleardoublepage
+
+
+%\input{chapters/appendix}
+% noch leer
+
+\input{include/oath}
+\thispagestyle{empty}
+\clearpage
 
 \end{document}
