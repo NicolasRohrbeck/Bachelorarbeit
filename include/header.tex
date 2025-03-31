@@ -120,7 +120,7 @@
 %erweiterte Formattierung der Kopf- und Fußzeilen
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[L]{\leftmark}
+\fancyhead[L]{\nouppercase{\leftmark}}
 \fancyhead[R]{\thepage}
 \fancyfoot{}
 \renewcommand{\headrulewidth}{0.5pt}
@@ -191,6 +191,8 @@
 \setcounter{tocdepth}{2}
 
 \newcommand{\un}[2]{#1\,\mathrm{#2}} 
+\newcommand{\dd}{\mathrm{d}}
+
 
 \usepackage[backend=biber, style=phys, urldate=comp, dateabbrev=false]{biblatex}
 \addbibresource{bachelor.bib}

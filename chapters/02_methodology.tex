@@ -1,12 +1,20 @@
 \chapter{Methodology \label{ch:methodology}}
 This chapter presents the hard- and software used in the \ac{ADS} as it was prepared for the junior flight of \ac{SETH}. The methodology covers a mixture of work done by senior scientists of the \ac{IEAP} and our own contributions. Most notable eternal contribution comes from Dr. Stephan Böttcher who did the \ac{PCB} design, wrote the \ac{FPGA} code and soldered the example which was used. 
 
-\section{Data Acquisition \label{sec:data_acquisition}}
+\section{Data Acquisition \label{sec:meth:data_acquisition}}
 During the flight multiple instruments are used to acquire data: an accelerometer and magnetometer for the attitude determination and three 10$\times$20\,mm$^2$ silicon \acfp{SSD}. The \acp{SSD} are used as a scientific payload to determine particle count rates and observe \acp{GCR}.
 
-The program \verb|rpirena.py| is used to stream the data coming from the \ac{FPGA} to the SD\:Card or the \verb|Asterix| server. This program was written by Dr. Stephan Böttcher and is running on a \verb|Raspberry Pi Zero|. As of March 14$^\mathrm{th}$ 2025 the program code can be found under \verb|asterix/home/subversion/stephan/solo/eda/cospi/host|. 
+The program \verb|rpirena.py| is used to stream the data coming from the \ac{FPGA} to the SD\:Card or the \verb|Asterix| server. This program was written by Dr. Stephan Böttcher and is running on a Raspberry Pi Zero. As of March 14$^\mathrm{th}$ 2025 the program code can be found under \verb|asterix/home/subversion/stephan/solo/eda/cospi/host|. The program writes different event lines into a file, depending on the packet header. The important lines for this thesis are \verb|ID| and \verb|C64| lines. The \verb|ID| lines contain the information from the accelerometer and magnetometer, each entry separated with a white space. The first entry is the line identifier "ID", followed by the packet header "4805" or "12C5" in hexadecimal. After this, the number of words in the line minus one (for the packet header) is printed "132" by design. After this, the information words from accelerometer and Magnetometer begin. An example of the line is given below.
+\begin{lstlisting}
+ID 4805 132 
+\end{lstlisting}
 
-\section{Data Interpretation \label{sec:data_interpretation}}
+The \verb|ID| 
+
+\section{Data Interpretation \label{sec:meth:data_interpretation}}
 To interpret the data, the script \verb|att_eval.py| is used.
 
-\section{Reflection on Methodology \label{sec:reflection_methodology}}
+\section{Determination of the Regener-Pfotzer Maximum \label{sec:meth:regener-pfotzer-determination}}
+The \acp{SSD} introduced in Section \ref{sec:meth:data_acquisition} measure charged particles, which pass through them and  deposit some of their kinetic energy according to the Bethe-Bloch equation \ref{eq:bg:bethe-bloch}
+
+\section{Reflection on Methodology \label{sec:meth:reflection_methodology}}

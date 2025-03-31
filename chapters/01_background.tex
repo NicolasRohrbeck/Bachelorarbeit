@@ -1,14 +1,22 @@
-\chapter{Theoretical Background \label{ch:background}}
+\chapter{Background \label{ch:background}}
 This chapter aims to give an introduction into the \acf{BEXUS} programme as a whole and the \acf{SETH} experiment as a part of this programme. Next the need for the \acf{ADS} is motivated and the measurement methods of the accelerometer and magnetometer explained.
 
-\section{\acs{SETH} and the \acs{BEXUS} programme \label{sec:seth_and_bx_programme}}
+\section{\acs{SETH} and the \acs{BEXUS} programme \label{sec:bg:seth_and_bx_programme}}
 
-The first balloon of the \ac{BEXUS} programme, \textit{BEXUS 1} launched on November 25$^{\mathrm{th}}$ 2002 at 15:53 UTC. Since then every year except 2003, 2020 and 2022 saw balloons being launched from the designated launch site \acf{ESRANGE} near the Swedish city of Kiruna \cite{IAC-08.E.1.1.4}\cite{bexus-campaign-history}.\\
+The first balloon of the \ac{BEXUS} programme, \textit{BEXUS 1} launched on November 25$^{\mathrm{th}}$ 2002 at 15:53 UTC. Since then every year, except for 2003, 2020 and 2022, saw balloons being launched from the designated launch site \ac{ESRANGE} near the Swedish city of Kiruna \cite{IAC-08.E.1.1.4}\cite{bexus-campaign-history}.\\
 The \acf{BX} programme is a bilateral programme between the \acf{DLR} and \acf{SNSA}. It offers university student teams the opportunity to build their own experiment and have it fly on a stratospheric balloon. The programme spans around one year and is constructed as a scaled-down version of a real space mission. The \acf{SETH} takes part in the 16th \ac{BEXUS} cycle and is expected to fly between the 3$^\mathrm{rd}$ of October 2025 and 13$^\mathrm{th}$ of October 2025 form \ac{ESRANGE}.\\
 
-The purpose of \ac{SETH} is to investigate the angular dependency of particle radiation in the upper atmosphere. To this end a means of measuring the experiments attitude while on the gondola is required. 
+The purpose of \ac{SETH} is to investigate the angular dependency of particle radiation in the upper atmosphere. To this end a means of measuring the experiments attitude and heading while on the gondola is required. 
 
-\section{Accelerometers \label{sec:accelerometers}}
+\section{Energy deposition of charged particles \label{sec:bg:energy-deposition}}
+Charged particles deposit energy according to the Bethe-Bloch equation \cite{Demtröder4}:
+\begin{equation}
+    -\frac{\dd E}{\dd x}=\frac{Z^2e^4n_e}{4\pi\varepsilon_0^2m_ev^2}\cdot\left[\ln{\frac{2m_ev^2}{\langle E_b\rangle}}-\ln{(1-\beta^2)}-\beta^2 \right]
+    \label{eq:bg:bethe-bloch}
+\end{equation}
 
-\section{Magnetometers \label{sec:magnetometers}}
-To determine the gondola's heading, a magnetometer is used just like a compass. There space based magnetometers \cite{space-based-magnetometers-review}.
+\section{Accelerometers \label{sec:bg:accelerometers}}
+The typical accelerometer is a \ac{MEMS}
+
+\section{Magnetometers \label{sec:bg:magnetometers}}
+To determine the gondola's heading, a magnetometer is used just like a compass. While many phenomena can be used to determine the magnitude and direction of a magnetic field, the sensor used for this thesis relies on tunnel magnetoresistance.

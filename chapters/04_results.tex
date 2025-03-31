@@ -1,2 +1,11 @@
 \chapter{Results \label{ch:results}}
-The ID lines are analysed by the program \verb|att_eval.py| introduced in section \ref{sec:data_interpretation}.
+The ID lines are analysed by the program \verb|att_eval.py| introduced in section \ref{sec:meth:data_interpretation}.
+
+\section{Attitude \label{sec:res:attitude}}
+In this section we evaluate the measurements of the accelerometer to determine roll, yaw and pitch angle of the gondola. This will affect the measurements of the accelerometer because the pitch angle can increase or decrease the measured magnetic vector along the x direction which will interfere with the determination of the direction. Section \ref{sec:res:direction} will thus build upon the insights found in this section. 
+
+\section{Direction \label{sec:res:direction}}
+This section will present the evaluation of the magnetometer as a means of determining the gondolas direction. The attitude of the gondola has to be taken into account beacuse...
+
+\section{Regener-Pfotzer Maximum \label{sec:res:regener-pfotzer}}
+The \acp{SSD} measured a radiation peak at a barometric height of 22\,km. Figure \ref{fig:res:rpmax_measured} shows the particle count rate plotted against the barometric altitude.
