@@ -8,12 +8,12 @@ The \acf{BX} programme is a bilateral programme between the \acf{DLR} and \acf{S
 
 The purpose of \ac{SETH} is to investigate the angular dependency of particle radiation in the upper atmosphere. To this end a means of measuring the experiments attitude and heading while on the gondola is required.
 
-The main source of radiation in the atmosphere are \acp{GCR} that hit the earth isotropically from all directions. In 1935 Erich Regener and Georg Pfotzer published an article in \textit{Nature} presenting a figure (see fig. \ref{fig:regener1935}) which shows the radiation intensity measured by three Geiger-Müller Counters stacked on top of each other two have an aperture angle of about 20$^\circ$ around the zenith \cite{regener-pfotzer-1935}.
+The main source of radiation in the atmosphere are \acp{GCR} that hit the earth isotropically from all directions. In 1935 Erich Regener and Georg Pfotzer published an article in \textit{Nature} presenting a figure (see fig. \ref{fig:regener1935}) which shows the radiation intensity measured by three Geiger-Müller Counters stacked on top of each other to have an aperture angle of about 20$^\circ$ around the zenith \cite{regener-pfotzer-1935}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/01_background/original_regener_pfotzer.png}
-    \caption[Regener-Pfotzer-Maximum as shown in \cite{regener-pfotzer-1935}]{Curve I shows the uncorrected coincidences per 4\,min. against ambient pressure in mm\ce{Hg}. Curve II shows the corrected coincidences taking the probability of coincidence counting against casual coincidences into account.}
+    \caption[Regener-Pfotzer-Maximum as shown in \cite{regener-pfotzer-1935}]{Curve I shows the uncorrected coincidences per 4\,min. against ambient pressure in mm\ce{Hg}. Curve II shows the corrected coincidences taking the probability of coincidence counting against casual coincidences into account\cite{regener-pfotzer-1935}.}
     \label{fig:regener1935}
 \end{figure}
 
@@ -22,7 +22,7 @@ Eighty Years later, the \ac{ADAM} \ac{BEXUS} Team around Dennis Trautwein showed
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{images/01_background/martensen.png}
-    \caption[Results of \acs{ADAM} at 27\,km]{Angular distribution of the charged particle fluence at an altitude of 27\,km.}
+    \caption[Results of \acs{ADAM} at 27\,km]{Angular distribution of the charged particle fluence at an altitude of 27\,km \cite{martensen2015}.}
     \label{fig:martensen2015}
 \end{figure}
 
@@ -32,7 +32,22 @@ Counting rate $C$ (coincidences per unit time) and isotropic Intensity $I_0$ (Fl
     \label{eq:sullivan}
 \end{equation}
 
-The goal of \ac{SETH} is to measure the angular distribution of the Regener-Pfotzer-Maximum in the zenith angle and additionally in the azimuthal angle. A \ac{CAD} model of parts of the \ac{SETH} detector is shown in fig. \ref{fig:seth_cad}. The zenith and azimuthal angle of an incoming particle can be determined through the coincidence of two photodiodes (active area shown in orange).
+\newpage
+The \ac{SETH} experiment has multiple well defined goals:
+
+    \underline{\textbf{Primary Objectives}}
+		\begin{description}\setlength\itemsep{-1em}
+			\item[Obj. 1.1:] To measure Primary Galactic Cosmic Rays and secondary particles around the Regener-Pfotzer maximum and analyse its angular dependency. (Scientific)
+			\item[Obj. 1.2:] To test a new electronics design featuring 48 signal channels . (Technical)
+		\end{description}
+	\underline{\textbf{Secondary Objectives}}
+		\begin{description}\setlength\itemsep{-1em}
+			\item[Obj. 2.1:] To measure the different particle species of Primary Galactic Cosmic Rays. (Scientific)
+            \item[Obj. 2.2:] To measure showering of a very high energy electron in the \ac{BGO} detectors. (Scientific)
+            \item[Obj. 2.3:] To measure the cardinal direction of the gondola. (Technical)
+		\end{description}
+
+The goals of \ac{SETH} which are the motivation for this thesis are Objectives 1.1 and 2.3: to measure the angular distribution of the Regener-Pfotzer-Maximum in the zenith and in the azimuthal angle and the determination of the gondolas cardinal direction (i.e. heading). A \ac{CAD} model of parts of the \ac{SETH} detector is shown in fig. \ref{fig:seth_cad}. The zenith and azimuthal angle of an incoming particle can be determined through the coincidence of two photodiodes (active area shown in orange).
 
 \begin{figure}[H]
     \centering
@@ -45,21 +60,24 @@ The gondola hanging from the \ac{BEXUS} balloon does not have a fixed orientatio
 
 \framebox[\linewidth][c]{\textbf{Objective 1.: The gondolas heading shall be measured.}}
 
-As mentioned above, the gondola will also experience swinging or more accurately pitching and rolling. This is a deflection from the plane parallel to the local earths surface, split into the lateral and longitudinal axis of the gondola (see fig. \ref{fig:attitude}). As the gondola is a rigid body and all experiments are fixated, the attitude of the gondola as a whole is the same as the attitude of our experiment.
+As mentioned above, the gondola will also experience swinging or more accurately pitching and rolling. This is a deflection from the plane parallel to the local earths surface, split into the lateral and longitudinal axis of the gondola (for comparison see fig. \ref{fig:attitude}). As the gondola is a rigid body and all experiments are fixated, the attitude of the gondola as a whole is the same as the attitude of our experiment.
 
 \framebox[\linewidth][c]{\textbf{Objective 2.: The gondolas attitude shall be measured.}}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{images/01_background/axes_of_an_airplane.png}
-    \caption[Axes of an airplane]{Axes of an airplane, taken from \cite{pilot-handbook}.}
+    \caption[Axes of an airplane]{Axes of an airplane, from \cite{pilot-handbook}.}
     \label{fig:attitude}
 \end{figure}
 
-It is the job of the \ac{ADS} to fulfil objectives 1 and 2. Thus this thesis will cover the implementation, calibration and preliminary testing of the \ac{ADS}.
-
-\section{Accelerometers \label{sec:bg:accelerometers}}
-The typical accelerometer is a \ac{MEMS}
+It is the job of the \ac{ADS} to fulfil objectives 1 and 2. This thesis will cover the implementation, calibration and preliminary testing of the \ac{ADS}.
 
 \section{Magnetometers \label{sec:bg:magnetometers}}
-To determine the gondola's heading, a magnetometer is used just like a compass. While many phenomena can be used to determine the magnitude and direction of a magnetic field, the sensor used for this thesis relies on tunnel magnetoresistance.
+To fulfil Objective 1, to determine the gondola's heading, a magnetometer is used. The 3-axis magnetometer will allow us to determine magnetic north and with the \ac{WMM} the local declination (i.e. the deviation from true north) can be calculated resulting in the gondolas heading. 
+
+While many phenomena can be used to determine the magnitude and direction of a magnetic field, the sensor used for this thesis relies on tunnel magnetoresistance.
+
+\section{Accelerometers \label{sec:bg:accelerometers}}
+To fulfil objective 2
+

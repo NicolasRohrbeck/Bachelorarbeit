@@ -1,5 +1,22 @@
 \chapter{Data \label{ch:data}}
 In this chapter the data acquired during the flight is presented. Only ID lines are relevant for this thesis.
 
+\section{Magnetic field strength \label{sec:da:magnetic_field_strength}}
+The \ac{DOC} \ac{NOAA} has publicly available geomagnetic field calculators using the \ac{WMM}, \ac{IGRF}, \ac{EMM} or \ac{WMMHR}. Because the \ac{IGRF} does not provide an uncertainty for its values and the \ac{EMM} is only valid for the years 2000 to 2019 both of these models are not considered. The \ac{WMM} and \ac{WMMHR} values for Kiel (54\deg\,20'\,18''\,N 10\deg\,7'34''E) on 1 April 2025 at 0\,km above \ac{MSL} are presented in table \ref{tab:da:mag_models_comp}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{r|cc}
+        Model & \ac{WMM} & \ac{WMMHR} \\\hline
+        Declination & 4\deg\,9'\,35''\,E & 4\deg\,12'\,27''\,E \\
+        North Comp. (mGs) & 177.787(1.37) & 178.407(1.35) \\ 
+        East Comp. (mGs) & 12.930(0.89) & 13.125(0.85) \\
+        Vertical Comp. (mGs) & 469.979(1.41) & 470.521(1.34) \\
+        Total Field (Gs) & 502.649(1.38) & 503.380(1.34) \\
+    \end{tabular}
+    \caption{Comparison of the \ac{WMM} \cite{WMM} and \ac{WMMHR} \cite{WMMHR}. Given in brackets are the uncertainties.}
+    \label{tab:da:mag_models_comp}
+\end{table}
+
 \section{ID lines \label{sec:da:id_lines}}
 The lines consist of IDs.
