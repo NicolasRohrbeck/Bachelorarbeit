@@ -1,22 +1,27 @@
 \chapter{Data \label{ch:data}}
-In this chapter the data acquired during the flight is presented. Only ID lines are relevant for this thesis.
+In this chapter the necessary data for the calibration of the sensors is presented. Section \ref{sec:da:vector_fields} explains what information about the fields is used to calibration of the sensors.
 
-\section{Magnetic field strength \label{sec:da:magnetic_field_strength}}
-The \ac{DOC} \ac{NOAA} has publicly available geomagnetic field calculators using the \ac{WMM}, \ac{IGRF}, \ac{EMM} or \ac{WMMHR}. Because the \ac{IGRF} does not provide an uncertainty for its values and the \ac{EMM} is only valid for the years 2000 to 2019 both of these models are not considered. The \ac{WMM} and \ac{WMMHR} values for Kiel (54\deg\,20'\,18''\,N 10\deg\,7'34''E) on 1 April 2025 at 0\,km above \ac{MSL} are presented in table \ref{tab:da:mag_models_comp}.
+\section{Vector fields \label{sec:da:vector_fields}}
+The \ac{DOC} \ac{NOAA} has publicly available geomagnetic field calculators using the \acf{WMM}, \acf{IGRF}, \acf{EMM} or \acf{WMMHR}. Because no uncertainty is provided for the \ac{IGRF} values and the \ac{EMM} is only valid for the years 2000 to 2019 both of these models are not considered. The \ac{WMM} and \ac{WMMHR} values for Kiel (54\deg\,20'\,18''\,N 10\deg\,7'34''\,E) on 1\:April\:2025 at 0\,km above \ac{MSL} are presented in table \ref{tab:da:mag_models_comp}.
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{r|cc}
-        Model & \ac{WMM} & \ac{WMMHR} \\\hline
-        Declination & 4\deg\,9'\,35''\,E & 4\deg\,12'\,27''\,E \\
-        North Comp. (mGs) & 177.787(1.37) & 178.407(1.35) \\ 
-        East Comp. (mGs) & 12.930(0.89) & 13.125(0.85) \\
-        Vertical Comp. (mGs) & 469.979(1.41) & 470.521(1.34) \\
-        Total Field (Gs) & 502.649(1.38) & 503.380(1.34) \\
+    \begin{tabular}{r|ccc}
+        Model & \ac{WMM} & \ac{WMMHR} & \ac{WMMHR} at 40\,km \ac{MSL}\\\hline
+        Declination & 4\deg\,9'\,35''\,E & 4\deg\,12'\,27''\,E & 4\deg\,5'\,27''\,E \\
+        North Comp. (mGs) & 177.8(1.4) & 178.4(1.4) & 175.6(1.4) \\ 
+        East Comp. (mGs) & 12.9(0.9) & 13.1(0.9) & 12.6(0.9) \\
+        Vertical Comp. (mGs) & 470.0(1.4) & 470.5(1.3) & 461.7(1.3) \\
+        Total Field (Gs) & 502.6(1.4) & 503.4(1.3) & 494.2(1.3) \\
     \end{tabular}
-    \caption{Comparison of the \ac{WMM} \cite{WMM} and \ac{WMMHR} \cite{WMMHR}. Given in brackets are the uncertainties.}
+    \caption[Comparison of the \acs{WMM} \cite{WMM} and \acs{WMMHR} \cite{WMMHR} in Kiel.]{Comparison of the \acs{WMM} \cite{WMM} and \acs{WMMHR} \cite{WMMHR}. Given in brackets are the uncertainties. All values are rounded to the error.}
     \label{tab:da:mag_models_comp}
 \end{table}
+
+Because of its lower uncertainties in all components of the magnetic field the \ac{WMMHR} is chosen for the calibration of the magnetometer. In light of the \ac{SETH} experiment the same table is given for Kiruna in the appendix \ref{sec:app:mag_field}.\\
+As the difference between 0\,km and 40\,km above \ac{MSL} is non-negligable at 10\,mGs, the mean of the values will be used. This is taken as an approximation to tracking the route of the balloon and getting the total field for all points on the track with an interval of 100\,ms (the sample rate of the sensors).
+
+The Accelerometer returns values in units of $g$, thus the magnitude of the field used for calibration is simply 1.
 
 \section{ID lines \label{sec:da:id_lines}}
 The lines consist of IDs.

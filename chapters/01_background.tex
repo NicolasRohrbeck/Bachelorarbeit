@@ -81,3 +81,20 @@ While many phenomena can be used to determine the magnitude and direction of a m
 \section{Accelerometers \label{sec:bg:accelerometers}}
 To fulfil objective 2
 
+\section{Measurement Errors \label{sec:bg:measurement_errors}}
+The sensing elements described in sections \ref{sec:bg:magnetometers} and \ref{sec:bg:accelerometers} each work in one dimension. To get a three-axis sensor, three sensing elements are assembled orthogonally to one another. In this automated process, errors in the alignment of the three sensing elements may occur. We will interpret the misalignment of the three sensing axes of a sensor as a $3\times3$ matrix $C_{m}$.
+
+Due to mechanical stresses, unshielded magnetic fields, or other influences during production of the sensing elements they each may have a scale factor different from 1. This means when a field of magnitude 1 is applied the sensor may read 1.1, and 0.55 when a field of magnitude 0.5 is applied. In this case, the scale factor would be 1.1. As each sensing element may have experienced different conditions during production, we will consider one scale factor per axis, resulting in a $3\times1$ matrix $C_{sf}$.
+
+The third error intrinsic to all 3-axis sensors is a zero bias, or null shift. This error may again have its origin during production of each sensing element and affects each axis differently. This error quantifies the offset, that the scaled measured value has from its true value. For example if no field is applied but the sensor reads a magnitude of 0.5 then that is the null shift. For the sensor as a whole, this is another $3\times1$ matrix $C_{zb}$.
+
+While the errors introduced above are present in accelerometers and magnetometers alike the latter suffers from two more errors. These are soft iron and hard iron errors which are a natural part of the measurement of magnetic fields.\\
+The hard iron errors $\delta\vec{B}$ are interfering magnetic fields from sources of constant magnetic fields around the sensor. Examples may be iron screws, nuts, or washers. This is a $3\times1$ matrix.
+
+The last error to be discussed is a $3\times3$ soft iron error matrix $C_{si}$.
+
+The measured quantities, denoted by the subscript "meas", can thus be expressed by the true vector fields as shown below. The superscripts $a$ and $b$ denote the accelerometer and magnetometer respectively.
+\begin{align}
+    \vec{G}_{meas}&=C^a_mC^a_{sf}\vec G+C_{zb}^a \\
+    \vec{B}_{meas}&=C^b_mC^b_{sf}C^b_{si}(\vec{B}+\delta\vec{B})+C_{zb}^b
+\end{align}

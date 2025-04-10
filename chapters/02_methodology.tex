@@ -14,5 +14,26 @@ The \verb|ID|
 \section{Data Interpretation \label{sec:meth:data_interpretation}}
 To interpret the data, the script \verb|att_eval.py| is used.
 
+\section{Calibration Technique \label{sec:meth:calibration_technique}}
+The calibration relies only on the magnitude of the vector field to be measured. For the magnetic field this is:
+\begin{align}
+    B& = \sqrt{B_x^2+B_y^2+B_z^2} \\
+    \iff B^2& = B_x^2+B_y^2+B_z^2 
+    \label{eq:regular_sphere}
+\end{align}
+
+If we assume the measurement to be affected by a scale factor $sf$ and a linear offset, we get the following three equations. Note that the field to be measured is given without a subscript.
+\begin{align}
+    B_{x,\ meas} &= sf_x\cdot B_x+x_0 \label{eq:bx}\\
+    B_{y,\ meas} &= sf_y\cdot B_y+y_0 \label{eq:by}\\
+    B_{z,\ meas} &= sf_z\cdot B_z+z_0 \label{eq:bz}
+\end{align}
+
+Solving for $B_{x,y,z}$ in each of eqs. \eqref{eq:bx} - \eqref{eq:bz} and plugging this into eq. \eqref{eq:regular_sphere} gives us the formula for a sphere shifted off the origin by $x_0$, $y_0$, and $z_0$. The radius of the sphere is also irregular because of the scale factors.
+\begin{equation}
+    B^2=\left(\frac{B_x-x_0}{sf_x}\right)^2 + \left(\frac{B_y-y_0}{sf_y}\right)^2 + \left(\frac{B_z-z_0}{sf_z}\right)^2
+    \label{eq:irregular_sphere}
+\end{equation}
+
 
 \section{Reflection on Methodology \label{sec:meth:reflection_methodology}}
