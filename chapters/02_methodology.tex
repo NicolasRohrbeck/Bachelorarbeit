@@ -4,36 +4,52 @@ This chapter presents the hard- and software used in the \ac{ADS} as it was prep
 \section{Data Acquisition \label{sec:meth:data_acquisition}}
 During the flight multiple instruments are used to acquire data: an accelerometer and magnetometer for the attitude determination and three 10$\times$20\,mm$^2$ silicon \acfp{SSD}. The \acp{SSD} are used as a scientific payload to determine particle count rates and observe \acp{GCR}.
 
-The program \verb|rpirena.py| is used to stream the data coming from the \ac{FPGA} to the SD\:Card or the \verb|Asterix| server. This program was written by Dr. Stephan Böttcher and is running on a Raspberry Pi Zero. As of March 14$^\mathrm{th}$ 2025 the program code can be found under \verb|asterix/home/subversion/stephan/solo/eda/cospi/host|. The program writes different event lines into a file, depending on the packet header. The important lines for this thesis are \verb|ID| and \verb|C64| lines. The \verb|ID| lines contain the information from the accelerometer and magnetometer, each entry separated with a white space. The first entry is the line identifier "ID", followed by the packet header "4805" or "12C5" in hexadecimal. After this, the number of words in the line minus one (for the packet header) is printed "132" by design. After this, the information words from accelerometer and Magnetometer begin. An example of the line is given below.
+The program \verb|rpirena.py| is used to stream the data coming from the \ac{FPGA} to the SD\:Card or the \verb|Asterix| server. This program was written by Dr. Stephan Böttcher and is running on a Raspberry Pi Zero. As of March 14$^\mathrm{th}$ 2025 the program code can be found under \verb|asterix/home/subversion/stephan/solo/eda/cospi/host|. The program writes different event lines into a file, depending on the header of the packet taken from a register. The important lines for this thesis are \verb|ID| lines. These lines contain the information from the accelerometer and magnetometer, each entry separated with a white space. The first entry is the line identifier "ID", followed by the packet header 4805$\equiv$0x12C5. After this, the number of words in the line minus one (for the packet header) is printed. This number should be 132 by design. After this, the information words from accelerometer and magnetometer begin. An example of the line is given below.
 \begin{lstlisting}
 ID 4805 132 
-\end{lstlisting}
-
-The \verb|ID| 
+\end{lstlisting} 
 
 \section{Data Interpretation \label{sec:meth:data_interpretation}}
-To interpret the data, the script \verb|att_eval.py| is used.
+To interpret the data, instances of the \textit{ads} class from the \verb|python| script \verb|att_eval.py| are used. Each instance is an \textit{ads} object of a specific \verb|.EI| file. The whole file is read with python's built-in \textit{.lineread()} method. The parser then reads each entry until a housekeeping ("H") line is read. The timestamp (ts1) from this line is extracted into a variable. The parser iterates over the next lines until it reaches the next Housekeeping line whose timestamp (ts2) is also saved. Meanwhile the vectors of the "ID" lines are saved into $20\times6$ numpy arrays. The extracted vectors from the "ID" lines are then stacked into an array with $n\cdot20$ lines and 6 columns where n is an integer equal to the number of "ID" lines between the two "H" lines. The timestamps are calculated using \textit{numpy's .arange()} method with the start time (ts1) -1 [second] as the \textit{start} parameter and the end time (ts2) as the \textit{end} parameter\footnote{The arange method works until the value of the end parameter -1}. The step size is 0.1 which is equivalent to 100\,ms. The start time has to start at ts1$-$1 because the time that the vectors are measured and digitalized is not the same as the time when they are requested by the \ac{FPGA}.
+
+The methods \textit{.plot\_vectors()}, \textit{.plot\_sphere()}, \textit{.plot\_angles()} and \textit{.plot\_heading()} are used to display the specified data. The data plotted is: The components of the accelerometer and magnetometer, converted to mGs and units of $g$, against time, the components in three dimensional space, the calculated pitch and roll angles against time and the calculated heading against time.
 
 \section{Calibration Technique \label{sec:meth:calibration_technique}}
-The calibration relies only on the magnitude of the vector field to be measured. For the magnetic field this is:
+The technique applied to calibrate the magnetometer and accelerometer is presented in \cite{non-orthonogality}. The calibration relies only on the magnitude of the vector field to be measured. This is due to the insight that the ideal measurements of the three sensor axes plotted in three dimensional space all fall onto the surface of a sphere. The radius of the sphere is simply the magnitude of the vector field to be measured. For the earth's magnetic field, $B_H$, this is:
 \begin{align}
-    B& = \sqrt{B_x^2+B_y^2+B_z^2} \\
-    \iff B^2& = B_x^2+B_y^2+B_z^2 
+    B_H&=\begin{pmatrix} B_x \\ B_y \\ B_z \end{pmatrix} \\
+    \iff B_H^2& = B_x^2+B_y^2+B_z^2 
     \label{eq:regular_sphere}
 \end{align}
 
-If we assume the measurement to be affected by a scale factor $sf$ and a linear offset, we get the following three equations. Note that the field to be measured is given without a subscript.
+If we assume the measurement to be affected by a scale factor and a linear offset, we get the following three equations. Note that the field to be measured is given without a subscript.
 \begin{align}
-    B_{x,\ meas} &= sf_x\cdot B_x+x_0 \label{eq:bx}\\
-    B_{y,\ meas} &= sf_y\cdot B_y+y_0 \label{eq:by}\\
-    B_{z,\ meas} &= sf_z\cdot B_z+z_0 \label{eq:bz}
+    B_{x,\ meas} &= \frac{B_x}{\sqrt{a^B}}+x_0^B \label{eq:bx}\\
+    B_{y,\ meas} &= \frac{B_y}{\sqrt{b^B}}+y_0^B \label{eq:by}\\
+    B_{z,\ meas} &= \frac{B_z}{\sqrt{c^B}}+z_0^B \label{eq:bz}
 \end{align}
 
-Solving for $B_{x,y,z}$ in each of eqs. \eqref{eq:bx} - \eqref{eq:bz} and plugging this into eq. \eqref{eq:regular_sphere} gives us the formula for a sphere shifted off the origin by $x_0$, $y_0$, and $z_0$. The radius of the sphere is also irregular because of the scale factors.
+Solving for $B_{x,y,z}$ in each of eqs. \eqref{eq:bx} - \eqref{eq:bz} and plugging this into eq. \eqref{eq:regular_sphere} gives us the formula for a sphere shifted off the origin by $x_0^B$, $y_0^B$, and $z_0^B$. The radius of the sphere is also irregular because of the scale factors.
+\begin{align}
+    B_{meas}^2&= B_{x,\ meas}^2 + B_{y,\ meas}^2 + B_{z,\ meas}^2\\
+    \iff B_{meas}^2&=a^B(B_x-x_0^B)^2 + b^B(B_y-y_0^B)^2 + c^B(B_z-z_0^B)^2 
+    \label{eq:irregular_sphere}\\
+    B_H^2&\overset{!}{=}a^B(B_x-x_0^B)^2 + b^B(B_y-y_0^B)^2 + c^B(B_z-z_0^B)^2
+    \label{eq:mag_fit_function}
+\end{align}
+
+ The eq. \eqref{eq:mag_fit_function} is used to determine the coefficients $a^B,b^B,c^B$ and $x_0^B,y_0^B$ and $z_0^B$ using \verb|gnuplot|'s fit function. It is now also apparent, why the scale factors in eqs. \eqref{eq:bx} - \eqref{eq:bz} are chosen as one over the square root: the fit converges faster and more accurately when only fitting a linear relationship.
+
+While eq. \eqref{eq:mag_fit_function} has been derived for the earth's magnetic field, the same concept is used in the calibration of the accelerometer. The function used to determine the coefficients is eq. \eqref{eq:acc_fit_function} because the data is in units of $g$. Thus the magnitude of the field is 1.
 \begin{equation}
-    B^2=\left(\frac{B_x-x_0}{sf_x}\right)^2 + \left(\frac{B_y-y_0}{sf_y}\right)^2 + \left(\frac{B_z-z_0}{sf_z}\right)^2
-    \label{eq:irregular_sphere}
+    1\overset{!}{=}a^g(g_x-x_0^g)^2 + b^g(g_y-y_0^g)^2 + c^g(g_z-z_0^g)^2
+    \label{eq:acc_fit_function}
 \end{equation}
 
+To interpret these mathematical coefficients in a physical sense, the matrices in eqs. \ref{eq:bg:g_with_errors} and \eqref{eq:bg:b_with_errors} from sec. \ref{sec:bg:measurement_errors} have to be compared to the numerically found coefficients. This complex relationship is shown below in eqs. \ref{eq:coeff_relation_a} and has been derived in appendix \ref{sec:app:deriv_of_coeff}.
+
+\begin{align}
+    
+\end{align}
 
 \section{Reflection on Methodology \label{sec:meth:reflection_methodology}}

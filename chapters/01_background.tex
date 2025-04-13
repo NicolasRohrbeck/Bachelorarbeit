@@ -82,7 +82,7 @@ While many phenomena can be used to determine the magnitude and direction of a m
 To fulfil objective 2
 
 \section{Measurement Errors \label{sec:bg:measurement_errors}}
-The sensing elements described in sections \ref{sec:bg:magnetometers} and \ref{sec:bg:accelerometers} each work in one dimension. To get a three-axis sensor, three sensing elements are assembled orthogonally to one another. In this automated process, errors in the alignment of the three sensing elements may occur. We will interpret the misalignment of the three sensing axes of a sensor as a $3\times3$ matrix $C_{m}$.
+The sensing elements described in sections \ref{sec:bg:magnetometers} and \ref{sec:bg:accelerometers} each work in one dimension. To get a three-axis sensor, three sensing elements are assembled orthogonally to one another. In this automated process, errors in the alignment of the three sensing elements may occur. We will interpret the misalignment of the three sensing axes of a sensor as a $3\times3$ matrix $C_{m}$ \cite{magcal}\cite{non-orthonogality}.
 
 Due to mechanical stresses, unshielded magnetic fields, or other influences during production of the sensing elements they each may have a scale factor different from 1. This means when a field of magnitude 1 is applied the sensor may read 1.1, and 0.55 when a field of magnitude 0.5 is applied. In this case, the scale factor would be 1.1. As each sensing element may have experienced different conditions during production, we will consider one scale factor per axis, resulting in a $3\times1$ matrix $C_{sf}$.
 
@@ -95,6 +95,7 @@ The last error to be discussed is a $3\times3$ soft iron error matrix $C_{si}$.
 
 The measured quantities, denoted by the subscript "meas", can thus be expressed by the true vector fields as shown below. The superscripts $a$ and $b$ denote the accelerometer and magnetometer respectively.
 \begin{align}
-    \vec{G}_{meas}&=C^a_mC^a_{sf}\vec G+C_{zb}^a \\
+    \vec{G}_{meas}&=C^a_mC^a_{sf}\vec G+C_{zb}^a \label{eq:bg:g_with_errors}\\
     \vec{B}_{meas}&=C^b_mC^b_{sf}C^b_{si}(\vec{B}+\delta\vec{B})+C_{zb}^b
+    \label{eq:bg:b_with_errors}
 \end{align}

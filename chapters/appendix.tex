@@ -1,5 +1,42 @@
 \chapter{APPENDIX \label{ch:appendix}}
 
+\section{Derivation of Coefficients \label{sec:app:deriv_of_coeff}}
+The vector of the measured magnetic field is:
+\begin{equation}
+    B_{meas}=
+\end{equation}
+
+
+The (magnetic) vector field to be measured is:
+\begin{equation}
+    B_H=\begin{pmatrix} B_x \\ B_y \\ B_z \end{pmatrix}
+\end{equation}
+
+Assume the z-axis as fixed or true, then the measured value (denoted by the hat) is the true value $B_z$ scaled by $c$ and offset by $z_0$:
+\begin{align}
+    \hat{B}_z&=cB_z+z_0 \\
+    \iff B_z&=\frac{\hat{B}_z-z_0}{c}
+    \label{eq:app:Bz_rearranged}
+\end{align}
+
+Next, we again assume the y component to be offset by $y_0$ and scaled by $b$. Additionally to these errors, we permit the sensing element to be deflected from the plane orthogonal to $B_z$ by an angle $\rho$:
+\begin{align}
+    \hat{B}_y&=b B_y+y_0 \\
+    \xRightarrow{\eqref{eq:app:Bz_rearranged}} \hat{B}_y&=b(B_y\cos\rho+B_z\sin\rho)+y_0 \\
+    \iff \hat{B}_y&=b(B_y\cos\rho+\frac{\hat{B}_z-z_0}{c}\sin\rho)+y_0 \\
+    \iff \frac{\hat{B}_y-y_0}{b}&=B_y\cos\rho+\frac{\hat{B}_z-z_0}{c}\sin\rho \\
+    \iff \frac{\hat{B}_y-y_0}{b}-\frac{\hat{B}_z-z_0}{c}\sin\rho&=B_y\cos\rho \\
+    \iff B_y &= \frac{\hat{B}_y-y_0}{b\cos\rho}-\frac{\hat{B}_z-z_0}{c}\tan\rho
+    \label{eq:app:By_rearranged}
+\end{align}
+
+The same can be done for $\hat{B}_x$. We define the deflections from the orthogonal line in the xy plane as $\varphi$ and $\lambda$ in the xz plane.
+\begin{align}
+    \hat{B}_x&=aB_x+x_0 \\
+    \iff \hat{B}_x & = a(B_x\cos\varphi\cos\lambda+B_z\sin\varphi\cos\lambda+B_y\sin\lambda)+x_0
+\end{align}
+
+\cleardoublepage
 \section{Magnetic Field in Kiruna \label{sec:app:mag_field}}
 Below, the \ac{WMM} and \ac{WMMHR} values for the earth's magnetic field in Kiruna (68\deg\,9'\,41"\,N 20\deg\,42'\,56"\,E) on 1\:October\:2025 at 20\,km above \ac{MSL} are presented.
 \begin{table}[h]
