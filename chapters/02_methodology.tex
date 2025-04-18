@@ -14,42 +14,77 @@ To interpret the data, instances of the \textit{ads} class from the \verb|python
 
 The methods \textit{.plot\_vectors()}, \textit{.plot\_sphere()}, \textit{.plot\_angles()} and \textit{.plot\_heading()} are used to display the specified data. The data plotted is: The components of the accelerometer and magnetometer, converted to mGs and units of $g$, against time, the components in three dimensional space, the calculated pitch and roll angles against time and the calculated heading against time.
 
-\section{Calibration Technique \label{sec:meth:calibration_technique}}
-The technique applied to calibrate the magnetometer and accelerometer is presented in \cite{non-orthonogality}. The calibration relies only on the magnitude of the vector field to be measured. This is due to the insight that the ideal measurements of the three sensor axes plotted in three dimensional space all fall onto the surface of a sphere. The radius of the sphere is simply the magnitude of the vector field to be measured. For the earth's magnetic field, $B_H$, this is:
+\section{Sensor Calibration Technique \label{sec:meth:calibration_technique}}
+The technique applied to calibrate the magnetometer and accelerometer is presented in \cite{non-orthonogality}. The calibration relies only on the magnitude of the vector field to be measured. This is due to the insight that the flawless measurements of the sensors plotted in three dimensional space all fall onto the surface of a sphere. The radius of the sphere is simply the magnitude of the vector field to be measured. For the earth's magnetic field, $B_H$, this is:
 \begin{align}
-    B_H&=\begin{pmatrix} B_x \\ B_y \\ B_z \end{pmatrix} \\
+    \vec{B}_H&=\begin{pmatrix} B_x \\ B_y \\ B_z \end{pmatrix} \label{eq:earth_field} \\
     \iff B_H^2& = B_x^2+B_y^2+B_z^2 
     \label{eq:regular_sphere}
 \end{align}
 
-If we assume the measurement to be affected by a scale factor and a linear offset, we get the following three equations. Note that the field to be measured is given without a subscript.
+If we assume the measurement of each component of the field to be affected by a scale factor and a linear offset, we get the following three equations. The field to be measured is given without a subscript (as in \eqref{eq:earth_field}) and we use the superscript $B$ to denote that these are the offsets in the measurement of the magnetometer.
 \begin{align}
-    B_{x,\ meas} &= \frac{B_x}{\sqrt{a^B}}+x_0^B \label{eq:bx}\\
-    B_{y,\ meas} &= \frac{B_y}{\sqrt{b^B}}+y_0^B \label{eq:by}\\
-    B_{z,\ meas} &= \frac{B_z}{\sqrt{c^B}}+z_0^B \label{eq:bz}
+    B_{x,\ meas} &= \frac{B_x}{\sqrt{a^B}}+x_0^B \\
+    B_{y,\ meas} &= \frac{B_y}{\sqrt{b^B}}+y_0^B \\
+    B_{z,\ meas} &= \frac{B_z}{\sqrt{c^B}}+z_0^B
 \end{align}
 
-Solving for $B_{x,y,z}$ in each of eqs. \eqref{eq:bx} - \eqref{eq:bz} and plugging this into eq. \eqref{eq:regular_sphere} gives us the formula for a sphere shifted off the origin by $x_0^B$, $y_0^B$, and $z_0^B$. The radius of the sphere is also irregular because of the scale factors.
+Solving for $B_{x,y,z}$ in each of the formulae above gives us:
 \begin{align}
-    B_{meas}^2&= B_{x,\ meas}^2 + B_{y,\ meas}^2 + B_{z,\ meas}^2\\
-    \iff B_{meas}^2&=a^B(B_x-x_0^B)^2 + b^B(B_y-y_0^B)^2 + c^B(B_z-z_0^B)^2 
-    \label{eq:irregular_sphere}\\
-    B_H^2&\overset{!}{=}a^B(B_x-x_0^B)^2 + b^B(B_y-y_0^B)^2 + c^B(B_z-z_0^B)^2
+    B_x&=\sqrt{a^B}(B_{x,\ meas}-x_0^B) \label{eq:bx} \\
+    B_y&=\sqrt{b^B}(B_{y,\ meas}-y_0^B) \label{eq:by} \\
+    B_z&=\sqrt{c^B}(B_{z,\ meas}-z_0^B) \label{eq:bz}
+\end{align}
+
+Plugging eqs. \eqref{eq:bx} to \eqref{eq:bz} into eq. \eqref{eq:regular_sphere} gives us the formula for an ellipsoid shifted off the origin by $x_0^B$, $y_0^B$, and $z_0^B$. The half-axes of the ellipsoid are given by the scale factors.
+\begin{align}
+    B_{H}^2&=a^B(B_{x,\ meas}-x_0^B)^2 + b^B(B_{y,\ meas}-y_0^B)^2 + c^B(B_{z,\ meas}-z_0^B)^2 
     \label{eq:mag_fit_function}
 \end{align}
 
- The eq. \eqref{eq:mag_fit_function} is used to determine the coefficients $a^B,b^B,c^B$ and $x_0^B,y_0^B$ and $z_0^B$ using \verb|gnuplot|'s fit function. It is now also apparent, why the scale factors in eqs. \eqref{eq:bx} - \eqref{eq:bz} are chosen as one over the square root: the fit converges faster and more accurately when only fitting a linear relationship.
+ Equation \eqref{eq:mag_fit_function} is used to determine the coefficients $a^B$, $b^B$, $c^B$, $x_0^B$, $y_0^B$ and $z_0^B$ using \verb|gnuplot|'s fit function. The measured vectors are given as input for the right hand side of the equation while the square of the magnitude of the earth's magnetic field in Kiel, given as 0.2488 Gs, is used for the left hand side.\\
+It is now also apparent, why the scale factors in eqs. \eqref{eq:bx} - \eqref{eq:bz} are chosen as one over the square root: the fit converges faster and more accurately when only fitting a linear relationship.
 
-While eq. \eqref{eq:mag_fit_function} has been derived for the earth's magnetic field, the same concept is used in the calibration of the accelerometer. The function used to determine the coefficients is eq. \eqref{eq:acc_fit_function} because the data is in units of $g$. Thus the magnitude of the field is 1.
+While eq. \eqref{eq:mag_fit_function} has been derived for the earth's magnetic field, the same concept is used in the calibration of the accelerometer. The function used to determine the coefficients is eq. \eqref{eq:acc_fit_function}. Because the data is in units of $g$ the magnitude of the field is 1.
 \begin{equation}
-    1\overset{!}{=}a^g(g_x-x_0^g)^2 + b^g(g_y-y_0^g)^2 + c^g(g_z-z_0^g)^2
+    1\overset{!}{=}a^g(g_{x,\ meas}-x_0^g)^2 + b^g(g_{y,\ meas}-y_0^g)^2 + c^g(g_{z,\ meas}-z_0^g)^2
     \label{eq:acc_fit_function}
 \end{equation}
 
-To interpret these mathematical coefficients in a physical sense, the matrices in eqs. \ref{eq:bg:g_with_errors} and \eqref{eq:bg:b_with_errors} from sec. \ref{sec:bg:measurement_errors} have to be compared to the numerically found coefficients. This complex relationship is shown below in eqs. \ref{eq:coeff_relation_a} and has been derived in appendix \ref{sec:app:deriv_of_coeff}.
+After the coefficients $a$, $b$, $c$, $x_0$. $y_0$ and $z_0$ are determined for accelerometer and magnetometer, the measured data set is modified as given in eqs. \eqref{eq:bx} - \eqref{eq:bz} to get the true components without measurement error.
 
+
+% OPTIONAL: To interpret these mathematical coefficients in a physical sense, the matrices in eqs. \eqref{eq:bg:g_with_errors} and \eqref{eq:bg:b_with_errors} from sec. \ref{sec:bg:measurement_errors} have to be compared to the numerically found coefficients. This complex relationship is shown below in eqs. \ref{eq:coeff_relation_a} and has been derived in appendix \ref{sec:app:deriv_of_coeff}.
+
+\section{Determination of Heading \label{sec:meth:determination_heading}}
+The calibrated dataset is used to determine the gondolas heading. For this the magnetic field vector in the body frame ($bf$) of reference is translated to a world frame ($wf$) using the accelerometer measurement. After this translation, the components all lie in the correct planes. The last open variable is the orientation of the x axis in the world frame. which is determined using the magnetometer. The acceleration vector in the world frame is given in \eqref{eq:meth:g_vector}. Note that the magnitude of $\vec{g}$ is 1 because measurements are in units of $g$.
+\begin{equation}
+    \vec{g}^{\ wf}=\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} \label{eq:meth:g_vector}
+\end{equation}
+
+If the gondola is deflected by an angle, the measurement of the gravity vector will have non zero $x$ or $y$ components. Pitch or roll of the gondola are determined by calculating the arctangent of the no zero component divided by the $z$ component. Using $x$, the result is the pitch angle (i.e. rotation about the y-axis) and using $y$ the result is the roll angle (i.e. rotation about the x-axis).\\
+If the deflection is not bound to only the x- or y-axis, spherical coordinates are used to describe the gravity vectors position. We define the angle between the projected vector in the xy-plane and the x-axis as $\phi\in[-\pi,\pi]$. The angle between the z-axis and the vector is defined as $\theta\in[0,\pi]$. Positive angles are counted counter-clockwise, consistent with the right hand rule.
+
+To rotate the body frame to the world frame, a rotation of $\phi$ is performed about the z-axis to align the body frame's x-axis with the deflection of the gravity vector. A second rotation of angle $\theta$ about the y-axis aligns the z-axis with the gravity vector. The world frame's xy-plane is now perpendicular to the earth's surface or equivalently: The positive z-axis is now anti-parallel to the normal vector of the earth's surface (i.e. $-\vec{g}$). The direction of the world frame's x-axis is rotated randomly about the z-axis and points in the (random) direction of the gondolas deflection. To determine what direction this is, the measured magnetometer vector is rotated to the world frame as shown below.
+\begin{equation}
+    \vec{B}_{meas}^{\ wf}=R_y(\theta)R_z(\phi)\vec{B}_{meas}^{\ bf}
+\end{equation}
+With:
 \begin{align}
-    
+    R_z(\phi)&=\begin{pmatrix}
+                \cos\phi & -\sin\phi & 0 \\
+                \sin\phi & \cos\phi & 0 \\
+                0 & 0 & 1
+                \end{pmatrix} \\
+    R_y(\theta)&=\begin{pmatrix}
+                \cos\theta & 0 & \sin\theta \\
+                0 & 1 & 0 \\
+                -\sin\theta & 0 & \cos\theta
+                \end{pmatrix}
 \end{align}
+
+Seeing as Magnetic North is the direction in which the xy-projection of the magnetic field is pointing, the xy-projection of $\vec{B}_{meas}^{\ wf}$ needs to be evaluated. The last angle $\psi\in[0,2\pi]$ is the angle between the x-axis of the world frame and the xy-projection of the magnetic field vector minus the declination and equivalent to the gondolas heading. The declination $\delta$ of the magnetic field describes the location dependant angle between True and Magnetic North.
+
+By computing pitch, roll and heading as described above, objectives 1 and 2 of this thesis are fulfilled.
 
 \section{Reflection on Methodology \label{sec:meth:reflection_methodology}}

@@ -93,9 +93,17 @@ The hard iron errors $\delta\vec{B}$ are interfering magnetic fields from source
 
 The last error to be discussed is a $3\times3$ soft iron error matrix $C_{si}$.
 
-The measured quantities, denoted by the subscript "meas", can thus be expressed by the true vector fields as shown below. The superscripts $a$ and $b$ denote the accelerometer and magnetometer respectively.
+The measured quantities, denoted by the subscript "meas", can thus be expressed by the true vector fields as shown below. The superscripts $g$ and $B$ denote the accelerometer and magnetometer respectively.
 \begin{align}
-    \vec{G}_{meas}&=C^a_mC^a_{sf}\vec G+C_{zb}^a \label{eq:bg:g_with_errors}\\
-    \vec{B}_{meas}&=C^b_mC^b_{sf}C^b_{si}(\vec{B}+\delta\vec{B})+C_{zb}^b
+    \vec{G}_{meas}&=C^g_mC^g_{sf}\vec G+C_{zb}^g \label{eq:bg:g_with_errors}\\
+    \vec{B}_{meas}&=C^B_mC^B_{sf}C^B_{si}(\vec{B}+\delta\vec{B})+C_{zb}^B
     \label{eq:bg:b_with_errors}
 \end{align}
+
+To simplify these equations, the misalignment of the sensors is assumed as negligible. The misalignment matrix for this case is shown in eq. \eqref{eq:bg:misalignment_matrix}. That this assumption is justified is shown in sec. \ref{sec:da:misalignment}.
+\begin{equation}
+    C_m= \begin{pmatrix} 1 & 0 & 0 \\
+                         0 & 1 & 0 \\
+                         0 & 0 & 1 \end{pmatrix}
+                         \label{eq:bg:misalignment_matrix}
+\end{equation}
