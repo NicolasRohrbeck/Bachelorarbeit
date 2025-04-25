@@ -22,7 +22,7 @@ The technique applied to calibrate the magnetometer and accelerometer is present
     \label{eq:regular_sphere}
 \end{align}
 
-If we assume the measurement of each component of the field to be affected by a scale factor and a linear offset, we get the following three equations. The field to be measured is given without a subscript (as in \eqref{eq:earth_field}) and we use the superscript $B$ to denote that these are the offsets in the measurement of the magnetometer.
+If we assume the measurement of each component of the field to be affected by a scale factor and a linear offset, we get the following three equations. The field to be measured is given without a subscript (as in \eqref{eq:earth_field}) and we use the superscript $B$ to denote that these are the coefficients for the measurement of the magnetometer.
 \begin{align}
     B_{x,\ meas} &= \frac{B_x}{\sqrt{a^B}}+x_0^B \\
     B_{y,\ meas} &= \frac{B_y}{\sqrt{b^B}}+y_0^B \\
@@ -62,14 +62,14 @@ The calibrated dataset is used to determine the gondolas heading. For this the m
     \vec{g}^{\ wf}=\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} \label{eq:meth:g_vector}
 \end{equation}
 
-If the gondola is deflected by an angle, the measurement of the gravity vector will have non zero $x$ or $y$ components. Pitch or roll of the gondola are determined by calculating the arctangent of the no zero component divided by the $z$ component. Using $x$, the result is the pitch angle (i.e. rotation about the y-axis) and using $y$ the result is the roll angle (i.e. rotation about the x-axis).\\
+If the gondola is deflected by an angle, the measurement of the gravity vector will have non zero $x$ or $y$ components. Pitch or roll of the gondola are determined by calculating the arctangent of the non zero component divided by the $z$ component. Using $x$, the result is the pitch angle (i.e. rotation about the y-axis) and using $y$ the result is the roll angle (i.e. rotation about the x-axis).\\
 If the deflection is not bound to only the x- or y-axis, spherical coordinates are used to describe the gravity vectors position. We define the angle between the projected vector in the xy-plane and the x-axis as $\phi\in[-\pi,\pi]$. The angle between the z-axis and the vector is defined as $\theta\in[0,\pi]$. Positive angles are counted counter-clockwise, consistent with the right hand rule.
 
-To rotate the body frame to the world frame, a rotation of $\phi$ is performed about the z-axis to align the body frame's x-axis with the deflection of the gravity vector. A second rotation of angle $\theta$ about the y-axis aligns the z-axis with the gravity vector. The world frame's xy-plane is now perpendicular to the earth's surface or equivalently: The positive z-axis is now anti-parallel to the normal vector of the earth's surface (i.e. $-\vec{g}$). The direction of the world frame's x-axis is rotated randomly about the z-axis and points in the (random) direction of the gondolas deflection. To determine what direction this is, the measured magnetometer vector is rotated to the world frame as shown below.
+To rotate the body frame to the world frame, a rotation of $\phi$ is performed about the z-axis to align the body frame's x-axis with the deflection of the gravity vector. A second rotation of angle $\theta$ about the y-axis aligns the z-axis with the gravity vector. The world frame's xy-plane is now perpendicular to the earth's surface or equivalently: The positive z-axis is now anti-parallel to the normal vector of the earth's surface (i.e. $-\vec{g}$). The heading of the world frame's x-axis is rotated randomly about the z-axis and points in the (random) direction of the gondolas deflection. To determine what heading this is, the measured magnetometer vector is rotated to the world frame as shown below.
 \begin{equation}
     \vec{B}_{meas}^{\ wf}=R_y(\theta)R_z(\phi)\vec{B}_{meas}^{\ bf}
 \end{equation}
-With:
+With the following rotational matrices:
 \begin{align}
     R_z(\phi)&=\begin{pmatrix}
                 \cos\phi & -\sin\phi & 0 \\
@@ -83,7 +83,7 @@ With:
                 \end{pmatrix}
 \end{align}
 
-Seeing as Magnetic North is the direction in which the xy-projection of the magnetic field is pointing, the xy-projection of $\vec{B}_{meas}^{\ wf}$ needs to be evaluated. The last angle $\psi\in[0,2\pi]$ is the angle between the x-axis of the world frame and the xy-projection of the magnetic field vector minus the declination and equivalent to the gondolas heading. The declination $\delta$ of the magnetic field describes the location dependant angle between True and Magnetic North.
+Seeing as Magnetic North is the direction in which the xy-projection of the magnetic field is pointing, the xy-projection of $\vec{B}_{meas}^{\ wf}$ needs to be evaluated. The angle $\psi\in[0,2\pi]$ is the angle between the x-axis of the world frame and the xy-projection of the magnetic field vector (in wf) minus the declination and equivalent to the gondolas heading. The declination $\delta$ of the magnetic field describes the location dependant angle between True and Magnetic North.
 
 By computing pitch, roll and heading as described above, objectives 1 and 2 of this thesis are fulfilled.
 

@@ -12,16 +12,20 @@ The \ac{DOC} \ac{NOAA} has publicly available geomagnetic field calculators usin
         North Comp. (mGs) & 177.8(1.4) & 178.4(1.4) & 175.6(1.4) \\ 
         East Comp. (mGs) & 12.9(0.9) & 13.1(0.9) & 12.6(0.9) \\
         Vertical Comp. (mGs) & 470.0(1.4) & 470.5(1.3) & 461.7(1.3) \\
-        Total Field (Gs) & 502.6(1.4) & 503.4(1.3) & 494.2(1.3) \\
+        Total Field (mGs) & 502.6(1.4) & 503.4(1.3) & 494.2(1.3) \\
     \end{tabular}
     \caption[Comparison of the \acs{WMM} \cite{WMM} and \acs{WMMHR} \cite{WMMHR} in Kiel.]{Comparison of the \acs{WMM} \cite{WMM} and \acs{WMMHR} \cite{WMMHR}. Given in brackets are the uncertainties. All values are rounded to the error.}
     \label{tab:da:mag_models_comp}
 \end{table}
 
 Because of its lower uncertainties in all components of the magnetic field the \ac{WMMHR} is chosen for the calibration of the magnetometer. In light of the \ac{SETH} experiment the same table is given for Kiruna in the appendix \ref{sec:app:mag_field}.\\
-As the difference between 0\,km and 40\,km above \ac{MSL} is non-negligable at 10\,mGs, the mean of the values will be used. This is taken as an approximation to tracking the route of the balloon and getting the total field for all points on the track with an interval of 100\,ms (the sample rate of the sensors).
+As the difference between 0\,km and 40\,km above \ac{MSL} is non-negligible at 10\,mGs, the different values will be used when applicable. When fitting the ground based measurement, the value for 0\,km altitude ($(503.4\,\mathrm{mGs})^2=0.25341156\mathrm{(Gs)}^2$) is used and when fitting the flight, the value for 40\,km altitude ($(494.2\,\mathrm{mGs})^2=0.24423364\mathrm{(Gs)}^2$) is used.
 
 The Accelerometer returns values in units of $g$, thus the magnitude of the field used for calibration is simply 1.
+
+\section{Calibration Measurements \label{sec:da:calibration_meas}}
+To find the coefficients $a$, $b$, $c$, $x_0$, $y_0$ and $z_0$ a set of three measurements are taken. The first measurement is taken in the \ac{IEAP}'s courtyard/car park on 11 April 2025. For this measurement, the sensors are rotated so that all faces of the casing lay on the ground once. After this a "random tumble" is performed, where the sensor is rotated randomly through all orientations at a height of about 1.7\,m above the ground.\\
+Measurements two and three are also random tumbles at a height of about 1.7\,m. Measurement two is performed HITHER and measurement three TITHER.
 
 \section{ID lines \label{sec:da:id_lines}}
 The lines consist of IDs.
