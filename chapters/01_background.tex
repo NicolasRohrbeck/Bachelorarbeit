@@ -76,14 +76,19 @@ As mentioned above, the gondola will also experience swinging or more accurately
 
 It is the job of the \ac{ADS} to fulfil objectives 1 and 2. This thesis will cover the implementation, calibration and preliminary testing of the \ac{ADS}.
 
-\section{Magnetometers \label{sec:bg:magnetometers}}
-To fulfil Objective 1, which is to determine the gondola's heading, a magnetometer is used. The 3-axis magnetometer will allow us to determine magnetic north and with the \ac{WMM} the local declination (i.e. the deviation from true north) can be calculated resulting in the gondolas heading. 
+\section{Sensing Elements \label{sec:bg:sensing_elements}}
+There are many different methods of measuring magnetic fields and accelerations as presented in \cite{}, \cite{} or \cite{}. This chapter will introduce the methods that are utilised by the sensors chosen for the \ac{ADS}.
 
-Sadly, the sensing technology of the used sensor is not mentioned in any official documentation. The only acknowledgement of \ac{STM} to the various questions posted on their community site is a short reply\footnote{\url{https://community.st.com/t5/mems-sensors/does-anyone-know-what-s-the-sensing-technology-about-lis3mdl/m-p/111961}} by Eleon Borlini\footnote{\url{https://www.linkedin.com/in/eleon-borlini-5520b477/}}, "Product development manager - Head of validation methodology" at \ac{STM}. In this post he simply states that it is a \ac{TMR} sensor with no further elaboration or prove. Thus we are forced to simply believe them as determining the sensing technology is out of the scope of this thesis.
+\subsection{Magnetometer \label{sec:bg:magnetometers}}
+To fulfil Objective 1, which is to determine the gondola's heading, a magnetometer is used. The 3-axis magnetometer will allow us to determine magnetic north and with the \ac{WMMHR} the local declination (i.e. the deviation from true north) can be calculated resulting in the gondolas true heading. 
+
+The sensing technology of the chosen sensor is not mentioned in any official documentation. The only acknowledgement of \ac{STM} to the various questions posted on their community site is a short reply\footnote{\url{https://community.st.com/t5/mems-sensors/does-anyone-know-what-s-the-sensing-technology-about-lis3mdl/m-p/111961}} by Eleon Borlini\footnote{\url{https://www.linkedin.com/in/eleon-borlini-5520b477/}}, "Product development manager - Head of validation methodology" at \ac{STM}. In this post he states that it is a \ac{TMR} sensor with no further elaboration or prove. Thus we are forced to believe them as determining the sensing technology is out of the scope of this thesis.
 
 First published in \cite{JULLIERE1975} in 1975, the tunnelling of electrons between (ferro-)magnetic films is the basis for many modern sensors used to determine the magnitude and direction of a magnetic field. It is expected that in the future \ac{TMR} sensors will become the most popular solution in magnetic sensing applications \cite{yan2022}.
 
-A \ac{MTJ} is built from two ferromagnetic materials and an electrical insulator in between. The magnetization of the ferromagnets can be influenced via an external magnetic field. In both magnets there are electrons parallel and antiparallel to the magnetization axis. Given below in eqs. \eqref{eq:bg:parallel_conductance} and \eqref{eq:bg:antiparallel_conductance} is the resistance of the \ac{MTJ} according to \cite{JULLIERE1975}. The indices ($\uparrow\uparrow$) and ($\uparrow\downarrow$) signalise a parallel and antiparallel spin of the tunnelling electron, relative to the magnetization. The $a$ and $a'$ denote the fraction of all tunnelling electrons with parallel or antiparallel spin.
+A \ac{MTJ} is built from two ferromagnetic materials with an electrical insulator in between. The external magnetic field which is to be measured can then be characterised by the electrical resistance of the junction. The magnetization $\vec{M}=\frac1V\sum_V\vec{p}_m$ of each of the two ferromagnets is the magnetic moment per unit volume \cite{Demtröder2017-eo}. It is influenced by the field $\vec{B}$, aligning the magnetization $\vec{M}$ with the external field in accordance with the magnetic field strength $
+|\vec{B}|$. The proportionality between magnetization and applied field strength is given by $\chi/\mu\mu_0$ with the magnetic susceptibility $\chi$, relative permeability $\mu$ and $\mu_0$ vacuum magnetic permeability.\\
+In both magnets there are electrons parallel and antiparallel to the magnetization axis. Given below in eqs. \eqref{eq:bg:parallel_conductance} and \eqref{eq:bg:antiparallel_conductance} is the resistance of the \ac{MTJ} according to \cite{JULLIERE1975}. The indices ($\uparrow\uparrow$) and ($\uparrow\downarrow$) signalise a parallel and antiparallel spin of the tunnelling electrons, relative to the magnetization. The $a$ and $a'$ denote the fraction of all tunnelling electrons with parallel or antiparallel spin.
 \begin{align}
     R_{\uparrow\uparrow}\propto \frac{1}{a^{}_{\uparrow\uparrow}a'_{\uparrow\uparrow}+a^{}_{\uparrow\downarrow}a_{\uparrow\downarrow}'}
     \label{eq:bg:parallel_conductance} \\
@@ -97,10 +102,24 @@ The relative resistance change then becomes \eqref{eq:bg:rel_res} according to \
     \label{eq:bg:rel_res}
 \end{equation}
 
-The sensor utilises this measurable change in resistance to determine the strength of the external field. Multiple ways to linearise the \ac{MTJ} response are utilised as presented in \cite{yan2022}.
+The sensor utilises this measurable change in resistance to determine the strength of the external field. Multiple ways to linearise the \ac{MTJ} response, e.g. , are utilised as presented in \cite{yan2022}.
 
-\section{Accelerometers \label{sec:bg:accelerometers}}
-To fulfil objective 2
+\subsection{Accelerometer \label{sec:bg:accelerometers}}
+To fulfil the second objective an accelerometer is used. The sensing element is a type of \ac{MEMS}: A silicon structure, called a proof mass, anchored to a substrate but able to move freely in at least 1 direction. On the proof mass there are small electrodes pointing outward that form a plate capacitor with static plates on the substrate (or handle layer), as shown in fig. \ref{fig:bg:mems_accelerometer}. The formula for the capacitance $C$ of a plate capacitor with area $A$ is given in eq. \eqref{eq:bg:cad}. The capacitance is inversely proportion la to the distance $d$ of the plates.
+\begin{equation}
+    C=\frac{A}{d}
+    \label{eq:bg:cad}
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/01_background/mems_acc_diagram.png}
+    \caption{Schematic representation of a \ac{MEMS} accelerometer taken from \cite{abdolvand2007}}
+    \label{fig:bg:mems_accelerometer}
+\end{figure}
+
+When an acceleration $\vec{a}_{\mathrm{ext}}$ is applied to the proof mass, it displaces from its initial position and the capacitance in the capacitors changes. Figure \ref{fig:bg:mems_accelerometer} is only one possible way of realizing the sensor. Other accelerometers may also have external electrodes on both sides of the proof mass' electrodes simultaneously measuring an increase and a decrease. 
+
 
 \section{Measurement Errors \label{sec:bg:measurement_errors}}
 The sensing elements described in sections \ref{sec:bg:magnetometers} and \ref{sec:bg:accelerometers} each work in one dimension. To get a three-axis sensor, three sensing elements are assembled orthogonally to one another. In this automated process, errors in the alignment of the three sensing elements may occur. We will interpret the misalignment of the three sensing axes of a sensor as a $3\times3$ matrix $C_{m}$ \cite{magcal}\cite{non-orthonogality}.
