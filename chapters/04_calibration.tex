@@ -5,12 +5,12 @@ The unfiltered measurements of the magnetometer are presented in fig. \ref{fig:r
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/04_results/raw_sphere_2025-04-11_x_z_axes.png}
+    \includegraphics[width=\linewidth]{images/04_results/raw_sphere_2025-04-11_y_z_axes.png}
     \caption{Components of the magnetometer of the calibration measurement on 11 April 2025 plotted in 3D-Space to form a distorted sphere.}
     \label{fig:res:raw_cali}
 \end{figure}
 
-In fig. \ref{fig:res:raw_cali_vectors} the three components of the magnetometer and accelerometer are plotted against their timestamp. This time is incorrect, as the \ac{FPGA} simply continues counting up from the last time it was connected to the internet. That the timestamp is incorrect does not matter for the sensor calibration, as only the time order of the vectors is relevant, rather than their absolute time. In the figure there can be made a clear distinction between three time intervals. The first interval is from the beginning of the measurement until 9:55. This is the time it took to leave the lab, take the elevator to the basement and go to the car park. A lot of vibration can be seen in the accelerometer and stray magnetic fields measured by the magnetometer.\\
+In fig. \ref{fig:res:raw_cali_vectors} there can be made a clear distinction between three time intervals. The first interval is from the beginning of the measurement until 9:55. This is the time it took to leave the lab, take the elevator to the basement and go to the car park. A lot of vibration can be seen in the accelerometer and stray magnetic fields measured by the magnetometer.\\
 The second phase is from 9:55 to around 10:21. After this time is when the random tumble begins. In phase II it can be seen how the magnetometer and accelerometer react to laying the device housing down in different orientations. When rotating the sensors, small shocks can be seen, such as at 10:06. These shocks are a different type of outlier in fig. \ref{fig:res:raw_cali}. They determine the thickness of the spheres mantle. The magnitude of the field randomly decreases significantly leading to measurement points near the centre of the sphere.
 
 \begin{figure}[H]
@@ -48,7 +48,7 @@ We will perform three approximations of the calibration parameters. The first on
 
 The final coefficients of the fit are presented in sec. \ref{sec:app:final_coefficients} in table \ref{tab:app:coeff} and the correlation matrices later in the same section. To determine the best set of parameters, the measurements are calibrated using all three sets and the residuals, i.e. the difference between calibrated vector and theoretical value, calculated. 
 
-The residuals (see page \pageref{eq:residuals}) with mean $\mu$ and standard deviation $\sigma$ are presented in fig. \ref{fig:res:residuals}. It can be seen, that the magnetometer calibration with the lowest mean deviation from the optimal value of $503.4$\,mGs is the calibration using phases II + III. The accelerometer calibration with the lowest deviation from the optimal value of 1$g$ is using only phase II. All sets of coefficients have around the same standard deviation which are about 50 to 100 times larger than the means. This can be explained by the extremely large errors in the later stages of the measurement series. Even though it is only a small part of the dataset, an error of 100\,\% is extremely large in comparison to a mean of e.g. 0.17\,\%.
+The residuals (for an explanation, see page \pageref{eq:residuals}) with mean $\mu$ and standard deviation $\sigma$ are presented in fig. \ref{fig:res:residuals}. It can be seen, that the magnetometer calibration with the lowest mean deviation from the optimal value of $503.4$\,mGs is the calibration using phases II + III. The accelerometer calibration with the lowest deviation from the optimal value of 1$g$ is using only phase II. All sets of coefficients have around the same standard deviation which are about 50 to 100 times larger than the means. This can be explained by the extremely large errors in the later stages of the measurement series. Even though it is only a small part of the dataset, an error of 100\,\% is extremely large in comparison to a mean of e.g. 0.17\,\%.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{images/04_results/residuals_mag_acc_calibrations.png}

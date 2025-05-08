@@ -2,7 +2,8 @@
 After having found the set of optimal calibration parameters and applying them to the flight data of \ac{SETH} junior, roll and pitch angles as well as the gondolas heading or orientation can be calculated. How this is done has been described in sec. \ref{sec:meth:determination_heading} on page \pageref{sec:meth:determination_heading}.
 
 The upper plot in fig. \ref{fig:res:flight_heading} presents the pitch angle in red and roll angle in blue plotted against the \ac{FPGA} time. The lower plot presents the gondolas heading against time. The angle of heading is given from 0 to 360 as it is written on a compass with $0^\circ\equiv\mathrm{North}$, $90^\circ\equiv\mathrm{East}$, etc.\\
-It can be seen that the gondola's swinging is strongest after launch and during ascent until it calms down at higher altitudes.
+It can be seen that the gondola's swinging is strongest after launch and during ascent until it calms down at higher altitudes.\\
+The timestamp on the x-axis has been corrected to show the correct time in UTC. The Raspberry Pi has an internal clock which is used during flight. If the time is not set it continues counting up from the time when it was last shut off. This resulted in a time difference of 3443\,s that the Pi was behind.
 
 \begin{figure}[H]
     \centering
