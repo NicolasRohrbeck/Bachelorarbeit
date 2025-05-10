@@ -126,37 +126,73 @@
 
 
 \chapter{Derivation of Coefficients \label{sec:app:deriv_of_coeff}}
-The vector of the measured magnetic field is:
+The mathematical coefficients $a$, $b$, $c$, $x_0$, $y_0$ and~$z_0$ are to be related to the physical error matrices $C_{\mathrm{sf}}$, $C_\mathrm{zb}$, $C_\mathrm{si}$ and~$\delta\vec{B}$.
+
+The mathematical equation is :
 \begin{equation}
-    B_{meas}=
+    \begin{pmatrix}B_{x,\ \mathrm{meas}} \\ B_{y,\ \mathrm{meas}}\\ B_{z,\ \mathrm{meas}} \end{pmatrix} = \begin{pmatrix} \frac{1}{\sqrt{a^B}} & 0 & 0 \\
+                                                0 & \frac{1}{\sqrt{b^B}} & 0 \\
+                                                0 & 0 & \frac{1}{\sqrt{c^B}}
+                                                \end{pmatrix}\cdot\begin{pmatrix}
+                                                    B_x \\ B_y \\ B_z
+                                                \end{pmatrix}+\begin{pmatrix}
+                                                    x_0^B \\ y_0^B \\ z_0^B
+                                                \end{pmatrix}
 \end{equation}
 
-
-The (magnetic) vector field to be measured is:
+The Physical relation between measured and real field is:
 \begin{equation}
-    B_H=\begin{pmatrix} B_x \\ B_y \\ B_z \end{pmatrix}
+    \begin{pmatrix}
+    B_{x,\ \mathrm{meas}} \\
+    B_{y,\ \mathrm{meas}} \\
+    B_{z,\ \mathrm{meas}}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        c^\mathrm{sf}_z \\
+        c^\mathrm{sf}_y \\
+        c^\mathrm{sf}_z
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        c^\mathrm{si}_{11} & c^\mathrm{si}_{12} & c^\mathrm{si}_{13} \\
+        c^\mathrm{si}_{21} & c^\mathrm{si}_{22} & c^\mathrm{si}_{23} \\
+        c^\mathrm{si}_{31} & c^\mathrm{si}_{32} & c^\mathrm{si}_{33} 
+    \end{pmatrix}
+    \cdot \left\{
+    \begin{pmatrix}
+    B_x \\ B_y \\ B_z
+    \end{pmatrix}
+    +\begin{pmatrix}
+     \delta B_x \\
+     \delta B_y \\
+     \delta B_z   
+    \end{pmatrix} 
+    \right\}
+    +\begin{pmatrix}
+        c^{\mathrm{zb}}_{11} & c^{\mathrm{zb}}_{12} & c^{\mathrm{zb}}_{13} \\
+        c^{\mathrm{zb}}_{21} & c^{\mathrm{zb}}_{22} & c^{\mathrm{zb}}_{23} \\
+        c^{\mathrm{zb}}_{31} & c^{\mathrm{zb}}_{32} & c^{\mathrm{zb}}_{33}
+    \end{pmatrix}
 \end{equation}
 
-Assume the z-axis as fixed or true, then the measured value (denoted by the hat) is the true value $B_z$ scaled by $c$ and offset by $z_0$:
+Now we simply compare the coefficients:
 \begin{align}
-    \hat{B}_z&=cB_z+z_0 \\
-    \iff B_z&=\frac{\hat{B}_z-z_0}{c}
-    \label{eq:app:Bz_rearranged}
-\end{align}
-
-Next, we again assume the y component to be offset by $y_0$ and scaled by $b$. Additionally to these errors, we permit the sensing element to be deflected from the plane orthogonal to $B_z$ by an angle $\rho$:
-\begin{align}
-    \hat{B}_y&=b B_y+y_0 \\
-    \xRightarrow{\eqref{eq:app:Bz_rearranged}} \hat{B}_y&=b(B_y\cos\rho+B_z\sin\rho)+y_0 \\
-    \iff \hat{B}_y&=b(B_y\cos\rho+\frac{\hat{B}_z-z_0}{c}\sin\rho)+y_0 \\
-    \iff \frac{\hat{B}_y-y_0}{b}&=B_y\cos\rho+\frac{\hat{B}_z-z_0}{c}\sin\rho \\
-    \iff \frac{\hat{B}_y-y_0}{b}-\frac{\hat{B}_z-z_0}{c}\sin\rho&=B_y\cos\rho \\
-    \iff B_y &= \frac{\hat{B}_y-y_0}{b\cos\rho}-\frac{\hat{B}_z-z_0}{c}\tan\rho
-    \label{eq:app:By_rearranged}
-\end{align}
-
-The same can be done for $\hat{B}_x$. We define the deflections from the orthogonal line in the xy plane as $\varphi$ and $\lambda$ in the xz plane.
-\begin{align}
-    \hat{B}_x&=aB_x+x_0 \\
-    \iff \hat{B}_x & = a(B_x\cos\varphi\cos\lambda+B_z\sin\varphi\cos\lambda+B_y\sin\lambda)+x_0
+    \begin{pmatrix}
+    \frac{1}{\sqrt{a^B}} & 0 & 0 \\
+    0 & \frac{1}{\sqrt{b^B}} & 0 \\
+    0 & 0 & \frac{1}{\sqrt{c^B}}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        c^\mathrm{sf}_z \\
+        c^\mathrm{sf}_y \\
+        c^\mathrm{sf}_z
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        c^\mathrm{si}_{11} & c^\mathrm{si}_{12} & c^\mathrm{si}_{13} \\
+        c^\mathrm{si}_{21} & c^\mathrm{si}_{22} & c^\mathrm{si}_{23} \\
+        c^\mathrm{si}_{31} & c^\mathrm{si}_{32} & c^\mathrm{si}_{33} 
+    \end{pmatrix}
 \end{align}

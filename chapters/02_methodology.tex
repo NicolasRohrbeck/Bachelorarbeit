@@ -97,21 +97,21 @@ To compute the heading spherical coordinates are used to describe the gravity ve
     \label{fig:meth:spherical_coordinates}
 \end{figure}
 
-To rotate the body frame to the world frame, a rotation of $\varphi$ is performed about the z-axis to align the body frame's x-axis with the deflection of the gravity vector. A second rotation of angle $\vartheta$ about the y-axis aligns the z-axis with the gravity vector. The world frame's xy-plane is now perpendicular to the earth's surface or equivalently: The positive z-axis is now anti-parallel to the normal vector of the earth's surface (i.e. $-\vec{g}$). The heading of the world frame's x-axis is rotated randomly about the z-axis and points in the (random) direction of the gondolas deflection. To determine what heading this is, the measured magnetometer vector is rotated to the world frame as shown below.
+To rotate the body frame to the world frame, a rotation of $\vartheta$ would need to be performed of $\pi-\vartheta$ about the axis in the xy-plane perpendicular to the xy-plane projection of $\vec{g}^{\mathrm{bf}}$ which is marked with the dotted line in fig. \ref{fig:meth:spherical_coordinates}. This would align the gravity vector antiparallel to the z-axis in the world frame. This hypothetical axis is equivalent to the x-axis rotated $\varphi+\frac{\pi}{2}$ about the z-axis. To effectively do this, a rotation of $\varphi$ is performed about the z-axis to align the body frame's x-axis with the deflection of the gravity vector. The y-axis is in  a ninety degree angle to the x-axis, so we will rotate about this as it does not matter if we turn the x-axis $\varphi+\frac{\pi}{2}$ and rotate about this or if we rotate the x-axis $\varphi$ and then rotate about the y-axis as they stand in a 90$^\circ$ angle to one another. So the second rotation of angle $\vartheta$ about the y-axis aligns the z-axis antiparallel with the gravity vector. Then a rotation of $-\varphi$ is performed about the z-axis to restore the initial heading of the sensor. To determine what heading this is, the measured magnetometer vector is rotated to the world frame as was described and is shown below.
 \begin{equation}
-    \vec{B}_{\mathrm{meas}}^{\ \mathrm{wf}}=R_y(\theta)R_z(\phi)\vec{B}_{\mathrm{meas}}^{\ \mathrm{bf}}
+    \vec{B}_{\mathrm{meas}}^{\ \mathrm{wf}}=R_z(-\varphi)R_y(\vartheta)R_z(\varphi)\vec{B}_{\mathrm{meas}}^{\ \mathrm{bf}}
 \end{equation}
 With the following rotational matrices:
 \begin{align}
-    R_z(\phi)&=\begin{pmatrix}
-                \cos\phi & -\sin\phi & 0 \\
-                \sin\phi & \cos\phi & 0 \\
+    R_z(\alpha)&=\begin{pmatrix}
+                \cos\alpha & -\sin\alpha & 0 \\
+                \sin\alpha & \cos\alpha & 0 \\
                 0 & 0 & 1
                 \end{pmatrix} \\
-    R_y(\theta)&=\begin{pmatrix}
-                \cos\theta & 0 & \sin\theta \\
+    R_y(\beta)&=\begin{pmatrix}
+                \cos\beta & 0 & \sin\beta \\
                 0 & 1 & 0 \\
-                -\sin\theta & 0 & \cos\theta
+                -\sin\beta & 0 & \cos\beta
                 \end{pmatrix}
 \end{align}
 
