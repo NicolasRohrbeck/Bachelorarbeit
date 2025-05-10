@@ -1,4 +1,6 @@
 \chapter{Final coefficients \label{sec:app:final_coefficients}}
+The final coefficients from the fits are presented in table \ref{tab:app:coeff}. The following tables tabs. \ref{tab:A:corr_first} to \ref{tab:A:corr_last} present the correlation matrix for each of the parameter sets. They are a measure of how much two coefficients are correlated, e.g. a bowl could be fitted by a steep ellipse with a far away zero point or a flat curve with a close zero point. These matrices are measure for the quality of the fit.
+
 \begin{table}[H]
     \centering
     \begin{tabular}{c|c|c|c}
@@ -33,6 +35,7 @@
          ca  & -0.008 & -0.015 &  0.273 & -0.007 & -0.013 &  1 \\
     \end{tabular}
     \caption{Correlation matrix of Phase II Acc}
+    \label{tab:A:corr_first}
 \end{table}
 
 \begin{table}[H]
@@ -104,26 +107,8 @@
          cm  & -0.142 & -0.038 &  0.134 & -0.215 & -0.121 & 1  \\
     \end{tabular}
     \caption{Correlation matrix of Phases II+III Mag}
+    \label{tab:A:corr_last}
 \end{table}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{images/04_results/phaseii_calibrated_calibration11apr.png}
-    \caption{Calibrated using coefficients from Phase II}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{images/04_results/phaseiii_calibrated_calibration11apr.png}
-    \caption{Calibrated using coefficients from Phase III}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{images/04_results/phaseii_and_iii_calibrated_calibration11apr.png}
-    \caption{Calibrated using coefficients from Phases II and III}
-\end{figure}
-
 
 \chapter{Derivation of Coefficients \label{sec:app:deriv_of_coeff}}
 The mathematical coefficients $a$, $b$, $c$, $x_0$, $y_0$ and~$z_0$ are to be related to the physical error matrices $C_{\mathrm{sf}}$, $C_\mathrm{zb}$, $C_\mathrm{si}$ and~$\delta\vec{B}$.
@@ -149,15 +134,15 @@ The Physical relation between measured and real field is:
     \end{pmatrix}
     =
     \begin{pmatrix}
-        c^\mathrm{sf}_z \\
-        c^\mathrm{sf}_y \\
-        c^\mathrm{sf}_z
-    \end{pmatrix}
-    \cdot
-    \begin{pmatrix}
         c^\mathrm{si}_{11} & c^\mathrm{si}_{12} & c^\mathrm{si}_{13} \\
         c^\mathrm{si}_{21} & c^\mathrm{si}_{22} & c^\mathrm{si}_{23} \\
         c^\mathrm{si}_{31} & c^\mathrm{si}_{32} & c^\mathrm{si}_{33} 
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        c^\mathrm{sf}_x & 0 & 0 \\
+        0 & c^\mathrm{sf}_y & 0 \\
+        0 & 0 & c^\mathrm{sf}_z
     \end{pmatrix}
     \cdot \left\{
     \begin{pmatrix}
@@ -170,9 +155,9 @@ The Physical relation between measured and real field is:
     \end{pmatrix} 
     \right\}
     +\begin{pmatrix}
-        c^{\mathrm{zb}}_{11} & c^{\mathrm{zb}}_{12} & c^{\mathrm{zb}}_{13} \\
-        c^{\mathrm{zb}}_{21} & c^{\mathrm{zb}}_{22} & c^{\mathrm{zb}}_{23} \\
-        c^{\mathrm{zb}}_{31} & c^{\mathrm{zb}}_{32} & c^{\mathrm{zb}}_{33}
+        c^{\mathrm{zb}}_x \\
+        c^{\mathrm{zb}}_y \\
+        c^{\mathrm{zb}}_z 
     \end{pmatrix}
 \end{equation}
 
@@ -183,16 +168,145 @@ Now we simply compare the coefficients:
     0 & \frac{1}{\sqrt{b^B}} & 0 \\
     0 & 0 & \frac{1}{\sqrt{c^B}}
     \end{pmatrix}
-    =
-    \begin{pmatrix}
-        c^\mathrm{sf}_z \\
-        c^\mathrm{sf}_y \\
-        c^\mathrm{sf}_z
-    \end{pmatrix}
-    \cdot
+    &=
     \begin{pmatrix}
         c^\mathrm{si}_{11} & c^\mathrm{si}_{12} & c^\mathrm{si}_{13} \\
         c^\mathrm{si}_{21} & c^\mathrm{si}_{22} & c^\mathrm{si}_{23} \\
         c^\mathrm{si}_{31} & c^\mathrm{si}_{32} & c^\mathrm{si}_{33} 
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        c^\mathrm{sf}_x & 0 & 0 \\
+        0 & c^\mathrm{sf}_y & 0 \\
+        0 & 0 & c^\mathrm{sf}_z
+    \end{pmatrix}
+    \label{eq:B:factor}
+    \\
+    \begin{pmatrix}
+    x_0^B \\ 
+    y_0^B \\ 
+    z_0^B
+    \end{pmatrix}
+    &=
+    \begin{pmatrix}
+        c^\mathrm{si}_{11} & c^\mathrm{si}_{12} & c^\mathrm{si}_{13} \\
+        c^\mathrm{si}_{21} & c^\mathrm{si}_{22} & c^\mathrm{si}_{23} \\
+        c^\mathrm{si}_{31} & c^\mathrm{si}_{32} & c^\mathrm{si}_{33} 
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        c^\mathrm{sf}_x & 0 & 0 \\
+        0 & c^\mathrm{sf}_y & 0 \\
+        0 & 0 & c^\mathrm{sf}_z
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+     \delta B_x \\
+     \delta B_y \\
+     \delta B_z   
+    \end{pmatrix}
+    +\begin{pmatrix}
+        c^{\mathrm{zb}}_x \\
+        c^{\mathrm{zb}}_y \\
+        c^{\mathrm{zb}}_z 
+    \end{pmatrix}
+    \label{eq:B:linear}
+\end{align}
+
+To solve these systems, we compute:
+\begin{equation}
+    \begin{pmatrix}
+        c^\mathrm{si}_{11} & c^\mathrm{si}_{12} & c^\mathrm{si}_{13} \\
+        c^\mathrm{si}_{21} & c^\mathrm{si}_{22} & c^\mathrm{si}_{23} \\
+        c^\mathrm{si}_{31} & c^\mathrm{si}_{32} & c^\mathrm{si}_{33} 
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        c^\mathrm{sf}_x & 0 & 0 \\
+        0 & c^\mathrm{sf}_y & 0 \\
+        0 & 0 & c^\mathrm{sf}_z
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        c^\mathrm{si}_{11}c_x^{\mathrm{sf}} & c^\mathrm{si}_{12}c_y^{\mathrm{sf}} & c^\mathrm{si}_{13}c_z^{\mathrm{sf}} \\
+        c^\mathrm{si}_{21}c_x^{\mathrm{sf}} & c^\mathrm{si}_{22}c_y^{\mathrm{sf}} & c^\mathrm{si}_{23}c_z^{\mathrm{sf}} \\
+        c^\mathrm{si}_{31}c_x^{\mathrm{sf}} & c^\mathrm{si}_{32}c_y^{\mathrm{sf}} & c^\mathrm{si}_{33}c_z^{\mathrm{sf}}
+    \end{pmatrix}
+\end{equation}
+
+From eq. \eqref{eq:B:factor} we can deduce that the soft iron error matrix is also zero outside of the main diagonal.
+\begin{align}
+    \frac{1}{\sqrt{a^B}} = c^\mathrm{si}_{11}c_x^{\mathrm{sf}} \\
+    \frac{1}{\sqrt{b^B}} = c^\mathrm{si}_{22}c_y^{\mathrm{sf}} \\
+    \frac{1}{\sqrt{c^B}} = c^\mathrm{si}_{33}c_z^{\mathrm{sf}} 
+\end{align}
+
+This also helps compute eq. \eqref{eq:B:linear}:
+\begin{align}
+    \eqref{eq:B:linear}
+    &=
+    \begin{pmatrix}
+    c^\mathrm{si}_{11}c_x^{\mathrm{sf}} & 0 & 0 \\
+    0 & c^\mathrm{si}_{22}c_y^{\mathrm{sf}} & 0 \\
+    0 & 0 & c^\mathrm{si}_{33}c_z^{\mathrm{sf}} 
+    \end{pmatrix}
+    \cdot\begin{pmatrix}
+         \delta B_x \\
+         \delta B_y \\
+         \delta B_z   
+    \end{pmatrix}
+    +\begin{pmatrix}
+        c^{\mathrm{zb}}_x \\
+        c^{\mathrm{zb}}_y \\
+        c^{\mathrm{zb}}_z 
+    \end{pmatrix}
+    \nonumber \\ 
+    &= 
+    \begin{pmatrix}
+        c^\mathrm{si}_{11}c_x^{\mathrm{sf}}\delta B_x \\
+        c^\mathrm{si}_{22}c_y^{\mathrm{sf}}\delta B_y \\
+        c^\mathrm{si}_{33}c_z^{\mathrm{sf}}\delta B_z 
+    \end{pmatrix}
+    +\begin{pmatrix}
+        c^{\mathrm{zb}}_x \\
+        c^{\mathrm{zb}}_y \\
+        c^{\mathrm{zb}}_z 
+    \end{pmatrix} \nonumber\\
+    \begin{pmatrix}
+    x_0^B \\ 
+    y_0^B \\ 
+    z_0^B
+    \end{pmatrix}
+    &=
+    \begin{pmatrix}
+        c^\mathrm{si}_{11}c_x^{\mathrm{sf}}\delta B_x + c^{\mathrm{zb}}_x\\
+        c^\mathrm{si}_{22}c_y^{\mathrm{sf}}\delta B_y + c^{\mathrm{zb}}_y\\
+        c^\mathrm{si}_{33}c_z^{\mathrm{sf}}\delta B_z +c^{\mathrm{zb}}_z
+    \end{pmatrix}
+\end{align}
+
+Analogous results can be obtained for the accelerometer:
+\begin{align}
+    \begin{pmatrix}
+        \frac{1}{\sqrt{a^g}} \\
+        \frac{1}{\sqrt{b^g}} \\
+        \frac{1}{\sqrt{c^g}} 
+    \end{pmatrix}
+    &=
+    \begin{pmatrix}
+        c_x^{\mathrm{sf}} \\
+        c_y^{\mathrm{sf}} \\
+        c_z^{\mathrm{sf}}
+    \end{pmatrix}\\
+    \begin{pmatrix}
+    x_0^g \\ 
+    y_0^g \\ 
+    z_0^g
+    \end{pmatrix}
+    &=
+    \begin{pmatrix}
+        c_x^{\mathrm{sf}} + c^{\mathrm{zb}}_x\\
+        c_y^{\mathrm{sf}} + c^{\mathrm{zb}}_y\\
+        c_z^{\mathrm{sf}} + c^{\mathrm{zb}}_z
     \end{pmatrix}
 \end{align}
