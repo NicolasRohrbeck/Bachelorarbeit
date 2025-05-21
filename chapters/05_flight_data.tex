@@ -3,7 +3,7 @@ After having found the set of optimal calibration parameters and applying them t
 
 The upper plot in fig. \ref{fig:res:flight_heading} presents the pitch angle in red and roll angle in blue plotted against the time. The lower plot presents the gondolas heading against time. The angle of heading is given from 0$^\circ$ to 360$^\circ$ as it is written on a compass with $0^\circ\equiv\mathrm{North}$, $90^\circ\equiv\mathrm{East}$, etc.\\
 It can be seen that the gondola's swinging is strongest after launch and during ascent until it calms down at higher altitudes.\\
-The timestamp on the x-axis has been corrected to show the correct time in~UTC. The Raspberry~Pi has an internal clock which is used during flight. If the time is not set it continues counting up from the time when it was last shut off. This resulted in a time difference of 3443\,s that the Pi was behind.
+The timestamp on the x-axis has been corrected to show the correct time in~UTC. The Raspberry~Pi has an internal clock which is used during flight. If the time is not set it continues counting up from the time when it was last shut off. This resulted in a time difference of 3443\,s that the Pi was lagging behind.
 
 \begin{figure}[H]
     \centering
@@ -38,7 +38,7 @@ In Figure \ref{fig:res:ascent_heading} it can be seen that the rotation of the g
 
 
 \section{Balloon Burst \label{sec:balloon_burst}}
-The balloon burst at approx. 11:06~UTC as can be seen in fig.\ref{fig:res:burst_heading}. It can also be seen in the upper plot that the roll and pitch angles are constantly different from zero. In addition to the movement of the gondola being dragged behind the balloon, may be the weight distribution of the payload. Until now it was assumed that the floor of the polystyrene box hanging from the balloon would be parallel to the ground when hung from its cover. If the attachment of the rope is not exactly in the middle of the cover but off in any direction, the box might hang a little bit inclined. This has not been tested for as the gondola only ever sat on the ground. 
+The balloon burst at approx. 11:06~UTC as can be seen in fig. \ref{fig:res:burst_heading}. It can also be seen in the upper plot that the roll and pitch angles are constantly different from zero. In addition to a layered movement of the gondola following the balloon up and to the side, may be the weight distribution of the payload. Until now it was assumed that the floor of the polystyrene box hanging from the balloon would be parallel to the ground when hung from its cover. If the attachment of the rope is not exactly in the middle of the cover but off in any direction, the box might hang a little bit inclined. This has not been tested for as the gondola only ever sat on the ground. 
 
 \begin{figure}[H]
     \centering

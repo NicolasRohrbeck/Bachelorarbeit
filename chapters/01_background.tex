@@ -75,14 +75,14 @@ To fulfil this requirement, the LIS3DH 3-axis accelerometer from STMicroelectron
 It is the job of the \ac{ADS} to fulfil objectives 1 and 2. This thesis will cover the implementation, calibration and preliminary testing of the \ac{ADS}.
 
 \section{Sensing Elements \label{sec:bg:sensing_elements}}
-There are many different methods of measuring magnetic fields and accelerations as presented in \parencite{}, \parencite{} or \parencite{}. This chapter will introduce the methods that are utilised by the sensors chosen for the \ac{ADS}.
+There are many different methods of measuring magnetic fields and accelerations as presented in \parencite{space-based-magnetometers-review} or \parencite{quantum_accelerometers}. This chapter will introduce the methods that are utilised by the sensors chosen for the \ac{ADS}.
 
 \subsection{Magnetometer \label{sec:bg:magnetometers}}
 To fulfil Objective 1, which is to determine the gondola's heading, a magnetometer is used. The 3-axis magnetometer will allow us to determine magnetic north and with the \ac{WMMHR} the local declination (i.e. the deviation from true north) can be calculated resulting in the gondolas true heading. 
 
-The sensing technology of the chosen sensor is not mentioned in any official documentation. The only acknowledgement of \ac{STM} to the various questions posted on their community site is a short reply\footnote{\url{https://community.st.com/t5/mems-sensors/does-anyone-know-what-s-the-sensing-technology-about-lis3mdl/m-p/111961}} by Eleon Borlini\footnote{\url{https://www.linkedin.com/in/eleon-borlini-5520b477/}}, "Product development manager - Head of validation methodology" at \ac{STM}. In this post he states that it is a \ac{TMR} sensor with no further elaboration or prove. Thus we are forced to believe them as determining the sensing technology is out of the scope of this thesis.
+The sensing technology of the chosen sensor is not mentioned in any official documentation. The only acknowledgement of \ac{STM} to the various questions posted on their community site is a short reply\footnote{\url{https://community.st.com/t5/mems-sensors/does-anyone-know-what-s-the-sensing-technology-about-lis3mdl/m-p/111961}} by Eleon Borlini\footnote{\url{https://www.linkedin.com/in/eleon-borlini-5520b477/}}, "Product development manager - Head of validation methodology" at \ac{STM}. In this post he states that it is a \ac{TMR} sensor with no further elaboration. Thus we are forced to believe them as determining the sensing technology is out of the scope of this thesis.
 
-First published in \parencite{JULLIERE1975} in 1975, the tunnelling of electrons between (ferro-)magnetic films is the basis for many modern sensors used to determine the magnitude and direction of a magnetic field. It is expected that in the future \ac{TMR} sensors will become the most popular solution in magnetic sensing applications \parencite{yan2022}.
+First published in \parencite{JULLIERE1975} in 1975, the tunnelling of electrons between \mbox{(ferro-)} magnetic films is the basis for many modern sensors used to determine the magnitude and direction of a magnetic field. It is expected that in the future \ac{TMR} sensors will become the most popular solution in magnetic sensing applications \parencite{yan2022}.
 
 A \ac{MTJ} is built from two ferromagnetic materials with an electrical insulator in between. The external magnetic field which is to be measured can then be characterised by the electrical resistance of the junction. The magnetization $\vec{M}=\frac1V\sum_V\vec{p}_m$ of each of the two ferromagnets is the magnetic moment per unit volume \parencite{Demtröder2017-eo}. It is influenced by the field $\vec{B}$, aligning the magnetization $\vec{M}$ with the external field in accordance with the magnetic field strength $
 |\vec{B}|$. The proportionality between magnetization and applied field strength is given by $\chi/\mu\mu_0$ with the magnetic susceptibility $\chi$, relative permeability $\mu$ and $\mu_0$ vacuum magnetic permeability.\\
@@ -103,15 +103,15 @@ The relative resistance change then becomes \eqref{eq:bg:rel_res} according to \
 The sensor utilises this measurable change in resistance to determine the strength of the external field. Multiple ways to linearise the \ac{MTJ} response, e.g. , are utilised as presented in \parencite{yan2022}.
 
 \subsection{Accelerometer \label{sec:bg:accelerometers}}
-To fulfil the second objective an accelerometer is used. The sensing element is a type of \ac{MEMS}: A silicon structure, called a proof mass, anchored to a substrate but able to move freely in at least 1 direction. On the proof mass there are small electrodes pointing outward that form a plate capacitor with static plates on the substrate (or handle layer), as shown in fig. \ref{fig:bg:mems_accelerometer}. The formula for the capacitance $C$ of a plate capacitor with area $A$ is given in eq. \eqref{eq:bg:cad}. The capacitance is inversely proportion la to the distance $d$ of the plates.
+To fulfil the second objective an accelerometer is used. The sensing element is a type of \ac{MEMS}: A silicon structure, called a proof mass, anchored to a substrate but able to move freely in at least 1 direction. On the proof mass there are small electrodes pointing outward that form a plate capacitor with static plates on the substrate (or handle layer), as shown in fig. \ref{fig:bg:mems_accelerometer}. The capacitive sensing method is presently the most frequently used sensing scheme for accelerometers. The formula for the capacitance $C$ of a plate capacitor with area $A$ is given in eq. \eqref{eq:bg:cad}. The capacitance is inversely proportional to the distance $d$ of the plates.
 \begin{equation}
-    C=\frac{A}{d}
+    C\propto\frac{A}{d}
     \label{eq:bg:cad}
 \end{equation}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/01_background/mems_acc_diagram.png}
+    \includegraphics[width=0.6\linewidth]{images/01_background/mems_acc_diagram.png}
     \caption{Schematic representation of a \ac{MEMS} accelerometer taken from \parencite{abdolvand2007}}
     \label{fig:bg:mems_accelerometer}
 \end{figure}
@@ -124,17 +124,17 @@ The sensing elements described in sections \ref{sec:bg:magnetometers} and \ref{s
 
 Due to mechanical stresses, unshielded magnetic fields, or other influences during production of the sensing elements they each may have a scale factor different from 1. This means when a field of magnitude 1 is applied the sensor may read 1.1, and 0.55 when a field of magnitude 0.5 is applied. In this case, the scale factor would be 1.1. As each sensing element may have experienced different conditions during production, we will consider one scale factor per axis, resulting in a $3\times3$ matrix $C_{\mathrm{sf}}$ with the factors on the diagonal.
 
-The third error intrinsic to all 3-axis sensors is a zero bias, or null shift. This error may again have its origin during production of each sensing element and affects each axis differently. This error quantifies the offset, that the scaled measured value has from its true value. For example if no field is applied but the sensor reads a magnitude of 0.5 then that is the null shift. For the sensor as a whole, this is another $3\times1$ matrix $C_{\mathrm{zb}}$.
+The third error intrinsic to all 3-axis sensors is a zero bias, or null shift. This error may again have its origin during production of each sensing element and affects each axis differently. This error quantifies the offset, that the scaled measured value has from its true value. For example if no field is applied but the sensor reads a magnitude of 0.5 then that is the null shift. For the sensor as a whole, this is a $3\times1$ vector $C_{\mathrm{zb}}$.
 
-While the errors introduced above are present in accelerometers and magnetometers alike the latter suffers from two more errors. These are soft iron and hard iron errors which are a natural part of the measurement of magnetic fields.\\
-The hard iron errors $\delta\vec{B}$ are interfering magnetic fields from sources of constant magnetic fields around the sensor. Examples may be iron screws, nuts, or washers. This is a $3\times1$ matrix.
+While the errors introduced above are present in accelerometers and magnetometers alike, the latter suffers from two more errors. These are soft iron and hard iron errors which are a natural part of the measurement of magnetic fields.\\
+The hard iron errors $\delta\vec{B}$ are interfering magnetic fields from sources of constant magnetic fields around the sensor. Examples may be iron screws, nuts, or washers. This is a $3\times1$ offset vector.
 
 The last error to be discussed is a $3\times3$ soft iron error matrix $C_{si}$.
 
 The measured quantities, denoted by the subscript "meas", can thus be expressed by the true vector fields as shown below. The superscripts $g$ and $B$ denote the accelerometer and magnetometer respectively.
 \begin{align}
-    \vec{G}_{meas}&=C^g_mC^g_{\mathrm{sf}}\vec G+C_{\mathrm{zb}}^g \label{eq:bg:g_with_errors}\\
-    \vec{B}_{meas}&=C^B_mC^B_{\mathrm{si}}C^B_{\mathrm{sf}}(\vec{B}+\delta\vec{B})+C_{\mathrm{zb}}^B
+    \vec{G}_{\mathrm{meas}}&=C^g_mC^g_{\mathrm{sf}}\vec G+C_{\mathrm{zb}}^g \label{eq:bg:g_with_errors}\\
+    \vec{B}_{\mathrm{meas}}&=C^B_mC^B_{\mathrm{si}}C^B_{\mathrm{sf}}(\vec{B}+\delta\vec{B})+C_{\mathrm{zb}}^B
     \label{eq:bg:b_with_errors}
 \end{align}
 
