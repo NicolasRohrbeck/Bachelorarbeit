@@ -1,14 +1,13 @@
 \chapter{Data \label{ch:data}}
-In this chapter the necessary data for the calibration of the sensors is presented. Section \ref{sec:da:vector_fields} explains what information about the fields is used to calibrate the sensors. Section \ref{sec:da:calibration_meas} presents the calibration measurement which was done. 
-
+This chapter presents the necessary data for the calibration of the sensors. Section~\ref{sec:da:vector_fields} explains what information about the fields is used to calibrate the sensors. Section~\ref{sec:da:calibration_meas} presents the calibration measurement which was done. 
 
 \begin{wrapfigure}{r}{0.27\linewidth}
     \centering
     \includegraphics[width=\linewidth]{images/03_data/chip_coord_sys.png}
-    \caption{Coordinate system of the accelerometer.}
+    \caption[Coordinate system of the accelerometer.]{Coordinate system of the accelerometer, taken from \parencite{lis3dh}.}
     \label{fig:data:chip_coord_sys}
 \end{wrapfigure}
-The intrinsic coordinate system of the accelerometer chip is shown in fig. \ref{fig:data:chip_coord_sys}. The sensor measures the acceleration of the proof mass relative to the substrate which is connected rigidly with the device housing. When the sensor is laying on the table and no forces are applied to it, the sensor will read an acceleration value of +1$g$ on the z-axis. The table on which the sensor lays exerts a force onto the housing, and thus the substrate, antiparallel and of the same magnitude as the gravitational force. This normal force is measured by the accelerometer. The gravity vector is the only acceleration we are interested in, so we change the sign of the z-axis' measurement value to align the gravity vector with the negative z-axis (compare fig. \ref{fig:body_frame}). The same problem applies to the measurement of the x- and y-axis. To circumnavigate it, the axes of the chip (fig. \ref{fig:data:chip_coord_sys}) are mirrored to generate the body frame of measurement presented in fig. \ref{fig:body_frame}. The body frame coordinate system is still right-handed, just like fig. manual, because two of the three axes were reinterpreted.
+The intrinsic coordinate system of the accelerometer chip is shown in fig.~\ref{fig:data:chip_coord_sys}. The sensor measures the acceleration of the proof mass relative to the substrate which is connected rigidly with the device housing. When the sensor is laying on the table and no forces are applied to it, the sensor will read an acceleration value of +1$g$ on the z-axis. The table on which the sensor lays exerts a force onto the housing, and thus the substrate, antiparallel and of the same magnitude as the gravitational force. This normal force is measured by the accelerometer. The gravity vector is the only acceleration we are interested in, so we change the sign of the z-axis' measurement value to align the gravity vector with the negative z-axis (compare fig.~\ref{fig:body_frame}). The same problem applies to the measurement of the x- and y-axis. To circumnavigate it, the axes of the chip (fig.~\ref{fig:data:chip_coord_sys}) are mirrored to generate the body frame of measurement presented in fig.~\ref{fig:body_frame}. The body frame coordinate system is still right-handed, just like fig. manual, because two of the three axes were reinterpreted.
 
 The x- and y-axes of the magnetometer are multiplied by $-1$ to realign the magnetometers coordinate system with the body frame.
 
@@ -23,7 +22,7 @@ The x- and y-axes of the magnetometer are multiplied by $-1$ to realign the magn
 \end{figure}
 
 \section{Vector fields \label{sec:da:vector_fields}}
-The \ac{DOC} \ac{NOAA} has publicly available geomagnetic field calculators using the \acf{WMM}, \acf{IGRF}, \acf{EMM} or \acf{WMMHR}. Because no uncertainty is provided for the \ac{IGRF} values and the \ac{EMM} is only valid for the years 2000 to 2019 both of these models are not considered. The \ac{WMM} and \ac{WMMHR} values for Kiel (54\deg\,20'\,18''\,N 10\deg\,7'34''\,E) on 1\:April\:2025 at 0\,km above \ac{MSL} are presented in table \ref{tab:da:mag_models_comp}.
+The \ac{NOAA}, daughter of the \ac{DOC}, has publicly available geomagnetic field calculators using the \acf{WMM}, \acf{IGRF}, \acf{EMM} or \acf{WMMHR}. Because no uncertainty is provided for the \ac{IGRF} values and the \ac{EMM} is only valid for the years 2000 to 2019 we do not consider these models. The \ac{WMM} and \ac{WMMHR} values for Kiel (54\deg\,20'\,18''\,N 10\deg\,7'34''\,E) on 1\:April\:2025 at 0\,km above \ac{MSL} are presented in tab.~\ref{tab:da:mag_models_comp}.
 
 \begin{table}[h]
     \centering
@@ -39,19 +38,18 @@ The \ac{DOC} \ac{NOAA} has publicly available geomagnetic field calculators usin
     \label{tab:da:mag_models_comp}
 \end{table}
 
-Because of its lower uncertainties in all components of the magnetic field the \ac{WMMHR} is chosen for the calibration of the magnetometer.\\
-As the difference between 0\,km and 40\,km above \ac{MSL} is non-negligible at 10\,mGs, the different values will be used when applicable. When fitting the ground based measurement, the value for 0\,km altitude ($(503.4\,\mathrm{mGs})^2=0.25341156\mathrm{(Gs)}^2$) is used and when fitting the flight, the value for 40\,km altitude ($(494.2\,\mathrm{mGs})^2=0.24423364\mathrm{(Gs)}^2$) is used.
+The \ac{WMMHR} is chosen for the calibration of the magnetometer because of its lower uncertainties in all components of the magnetic field. As the difference between 0\,km and 40\,km above \ac{MSL} is non-negligible at 10\,mGs, the different values will be used when applicable. The value for 0\,km altitude ($(503.4\,\mathrm{mGs})^2=0.25341156\mathrm{(Gs)}^2$) is used, when fitting the ground based calibration measurement.
 
-The Accelerometer returns values in units of $g$, thus the magnitude of the field used for calibration is simply 1.
+The accelerometer returns values in units of~$g$, thus the magnitude of the field used for calibration is simply 1.
 
 \section{Calibration Measurement \label{sec:da:calibration_meas}}
-To find the coefficients $a$, $b$, $c$, $x_0$, $y_0$ and $z_0$ a calibration measurement is taken in the \ac{IEAP}'s courtyard/car park on 11 April 2025. Figure \ref{fig:test_lab} shows the area where the measurements are taken in red. To measure outside of the home electronics laboratory, the Ethernet is disconnected and the power pins are connected to four AA 1.5\,V batteries. The lab setup is shown in fig. \ref{fig:ads_mobile} without the battery pack and with Ethernet connected. The \ac{ADS} resides in the black box marked with "SETHAT" "SN1". 
+A calibration measurement is taken in the \ac{IEAP}'s courtyard/car park on 11 April 2025 to find the coefficients $a$,~$b$,~$c$,~$x_0$,~$y_0$, and~$z_0$. Figure~\ref{fig:test_lab} shows the area where we take the measurements in red. To measure outside of the home electronics laboratory, the Ethernet is disconnected, and the power pins are connected to four AA 1.5\,V batteries. The lab setup is shown in fig.~\ref{fig:ads_mobile} without the battery pack and with Ethernet connected. The \ac{ADS} resides in the black box marked with \say{SETHAT SN1}. 
 
 \begin{figure}[h]
     \begin{subfigure}[t]{.5\textwidth}
         \centering
         \includegraphics[width=0.9\linewidth]{images/03_data/lageplan Physikzentrum.png}
-        \caption[Floor plan of the Physikzentrum.]{Floor plan of the Physikzentrum. Marked in pink is the area shown in \ref{fig:test_lab}.}
+        \caption[Floor plan of the Physikzentrum.]{Floor plan of the Physikzentrum. Marked in pink is the area shown in~\ref{fig:test_lab}.}
         \label{fig:lageplan_physikzentrum}
     \end{subfigure}
     \begin{subfigure}[t]{.5\textwidth}
